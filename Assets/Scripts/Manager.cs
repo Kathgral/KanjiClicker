@@ -6,6 +6,11 @@ using TMPro;
 
 public class Manager : MonoBehaviour
 {
+    public static Manager instance;
+    void Awake() {
+        instance = this;
+    }
+
     public TextMeshProUGUI ClicksTotalText;
     public TextMeshProUGUI ClicksPerSecondText;
     public TextMeshProUGUI ClicksPerTapText;
@@ -13,6 +18,13 @@ public class Manager : MonoBehaviour
     public float TotalClicks;
 
     public int TotalClickPerTap;
+
+    public void AddClicks()
+    {
+        TotalClicks += TotalClickPerTap;
+        ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
+    }
+
 
     public int hasTapUpgrade1;
     public int ClicksPerTap1;
@@ -56,12 +68,6 @@ public class Manager : MonoBehaviour
         }
     }
 
-    
-    public void AddClicks()
-    {
-        TotalClicks += TotalClickPerTap;
-        ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
-    }
 
     public int hasUpgrade1;
     public int autoClicksPerSecond1;
@@ -198,6 +204,6 @@ public class Manager : MonoBehaviour
         TotalMult += hasUpgrade10 * autoClicksPerSecond10;
         TotalClicks += TotalMult * Time.deltaTime;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
-        ClicksPerSecondText.text = "Clicks Per Second : \n" + TotalMult.ToString("0");
+        ClicksPerSecondText.text = "Clicks Per Second : " + TotalMult.ToString("0");
     }
 }
