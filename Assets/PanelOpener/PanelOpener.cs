@@ -14,4 +14,15 @@ public class PanelOpener : MonoBehaviour
             Panel.SetActive(!isActive);
         }
     }
+
+    public GameObject ClicksPanel;
+    public void OpenClicksPanel()
+    {
+        if(ClicksPanel != null)
+        {
+            bool isActive = ClicksPanel.activeSelf;
+
+            ClicksPanel.SetActive(!isActive);
+        }
+    }
 }

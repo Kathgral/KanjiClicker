@@ -8,13 +8,58 @@ public class Manager : MonoBehaviour
 {
     public TextMeshProUGUI ClicksTotalText;
     public TextMeshProUGUI ClicksPerSecondText;
+    public TextMeshProUGUI ClicksPerTapText;
 
-    float TotalClicks;
+    public float TotalClicks;
 
+    public int TotalClickPerTap;
 
+    public int hasTapUpgrade1;
+    public int ClicksPerTap1;
+    public int minimumClicksToUnlockTapUpgrade1;
+    public void TapUpgrade1()
+    {
+        if(TotalClicks >= minimumClicksToUnlockTapUpgrade1)
+        {
+            TotalClicks -= minimumClicksToUnlockTapUpgrade1;
+            hasTapUpgrade1 += 1;
+            TotalClickPerTap += ClicksPerTap1;  
+            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClickPerTap.ToString("0");
+        }
+    }
+
+    public int hasTapUpgrade2;
+    public int ClicksPerTap2;
+    public int minimumClicksToUnlockTapUpgrade2;
+    public void TapUpgrade2()
+    {
+        if(TotalClicks >= minimumClicksToUnlockTapUpgrade2)
+        {
+            TotalClicks -= minimumClicksToUnlockTapUpgrade2;
+            hasTapUpgrade2 += 1;
+            TotalClickPerTap += ClicksPerTap2;  
+            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClickPerTap.ToString("0");
+        }
+    }
+
+    public int hasTapUpgrade3;
+    public int ClicksPerTap3;
+    public int minimumClicksToUnlockTapUpgrade3;
+    public void TapUpgrade3()
+    {
+        if(TotalClicks >= minimumClicksToUnlockTapUpgrade3)
+        {
+            TotalClicks -= minimumClicksToUnlockTapUpgrade3;
+            hasTapUpgrade3 += 1;
+            TotalClickPerTap += ClicksPerTap3;  
+            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClickPerTap.ToString("0");
+        }
+    }
+
+    
     public void AddClicks()
     {
-        TotalClicks++;
+        TotalClicks += TotalClickPerTap;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
     }
 
