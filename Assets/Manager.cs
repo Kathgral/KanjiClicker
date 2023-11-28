@@ -198,6 +198,6 @@ public class Manager : MonoBehaviour
         TotalMult += hasUpgrade10 * autoClicksPerSecond10;
         TotalClicks += TotalMult * Time.deltaTime;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
-        ClicksPerSecondText.text = "Clicks Per Second : " + TotalMult.ToString("0");
+        ClicksPerSecondText.text = "Clicks Per Second : \n" + TotalMult.ToString("0");
     }
 }
