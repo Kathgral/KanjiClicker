@@ -6,21 +6,27 @@ using TMPro;
 
 public class Manager : MonoBehaviour
 {
+    [SerializeField]
+    public TextMeshProUGUI ClicksTotalText;
+    public TextMeshProUGUI ClicksPerSecondText;
+    public TextMeshProUGUI ClicksPerTapText;
+    public float TotalClicks;
+    public int TotalClickPerTap;
+
     public static Manager instance;
     void Awake() {
         instance = this;
     }
 
-    public TextMeshProUGUI ClicksTotalText;
-    public TextMeshProUGUI ClicksPerSecondText;
-    public TextMeshProUGUI ClicksPerTapText;
+    // void Start() {
+    //     JSONSave.instance.LoadGame();
+    // }
+    // void Start() {
+    //     TotalClicks = PlayerPrefs.GetFloat("TotalClicks");
+    //     TotalClickPerTap = PlayerPrefs.GetInt("TotalClickPerTap");
+    // }
 
-    public float TotalClicks;
-
-    public int TotalClickPerTap;
-
-    public void AddClicks()
-    {
+    public void AddClicks(){
         TotalClicks += TotalClickPerTap;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
     }
@@ -205,5 +211,10 @@ public class Manager : MonoBehaviour
         TotalClicks += TotalMult * Time.deltaTime;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
         ClicksPerSecondText.text = "Clicks Per Second : " + TotalMult.ToString("0");
+
+        //save data
+        // PlayerPrefs.SetFloat("TotalClicks", TotalClicks);
+        // PlayerPrefs.SetInt("TotalClickPerTap", TotalClickPerTap);
+        // JSONSave.instance.SaveGame();
     }
 }
