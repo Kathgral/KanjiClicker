@@ -2,64 +2,62 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 
+// All the data to save/load
+[System.Serializable]
+public class PlayerData
+{
+    // Don't forget to initialize the value when there is no save
+    public float TotalClicks = 0; 
+    public int TotalClicksPerTap = 1;
+}
+
+
+// Functions to save and load
 public class JSONSave : MonoBehaviour
 {
-    Manager manager;
+    //public PlayerData playerData;  // Reference to the player data
+
     string saveFilePath;
+    public PlayerData playerData;
 
     public static JSONSave instance;
-    void Awake() {
-        instance = this;
-    }
-
-
-    void Start()
+    void Awake()
     {
-        // manager = new Manager();
+        instance = this;
         saveFilePath = Application.persistentDataPath + "/PlayerData.json";
-        LoadGame();
     }
 
-    public void LoadGame()
+    public PlayerData LoadGame()
     {
         if (File.Exists(saveFilePath))
         {
             string loadPlayerData = File.ReadAllText(saveFilePath);
-            manager = JsonUtility.FromJson<Manager>(loadPlayerData);
-
+            JsonUtility.FromJsonOverwrite(loadPlayerData, playerData);
             Debug.Log("Load game complete!");
+            Debug.Log("Loaded TotalClicks: " + playerData.TotalClicks);
         }
-        else{
+        else
+        {
+            playerData = new PlayerData();
             Debug.Log("There is no save files to load!");
-            NewGame();
+            Debug.Log("New game!");
         }
+        return playerData;
     }
 
-    public void NewGame()
+    public void SaveGame(PlayerData playerData)
     {
-        manager.TotalClicks = 10;
-        manager.TotalClickPerTap = 1;
-
-        Debug.Log("New game!");
-    }
-
-    public void SaveGame()
-    {
-        string savePlayerData = JsonUtility.ToJson(manager);
+        string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
-
         Debug.Log("Save file created at: " + saveFilePath);
     }
-
 
     public void DeleteSaveFile()
     {
         if (File.Exists(saveFilePath))
         {
             File.Delete(saveFilePath);
-
             Debug.Log("Save file deleted!");
         }
         else

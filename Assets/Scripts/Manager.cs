@@ -4,32 +4,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
 public class Manager : MonoBehaviour
 {
-    [SerializeField]
     public TextMeshProUGUI ClicksTotalText;
     public TextMeshProUGUI ClicksPerSecondText;
     public TextMeshProUGUI ClicksPerTapText;
     public float TotalClicks;
-    public int TotalClickPerTap;
+    public int TotalClicksPerTap;
 
+    public PlayerData playerData;
     public static Manager instance;
+    
     void Awake() {
         instance = this;
     }
 
-    // void Start() {
-    //     JSONSave.instance.LoadGame();
-    // }
-    // void Start() {
-    //     TotalClicks = PlayerPrefs.GetFloat("TotalClicks");
-    //     TotalClickPerTap = PlayerPrefs.GetInt("TotalClickPerTap");
-    // }
+    void Start() {
+        playerData = JSONSave.instance.LoadGame();
+        TotalClicks = playerData.TotalClicks;
+        TotalClicksPerTap = playerData.TotalClicksPerTap;
+    }
+
 
     public void AddClicks(){
-        TotalClicks += TotalClickPerTap;
+        TotalClicks += TotalClicksPerTap;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
     }
+
 
 
     public int hasTapUpgrade1;
@@ -41,8 +43,8 @@ public class Manager : MonoBehaviour
         {
             TotalClicks -= minimumClicksToUnlockTapUpgrade1;
             hasTapUpgrade1 += 1;
-            TotalClickPerTap += ClicksPerTap1;  
-            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClickPerTap.ToString("0");
+            TotalClicksPerTap += ClicksPerTap1;  
+            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClicksPerTap.ToString("0");
         }
     }
 
@@ -55,8 +57,8 @@ public class Manager : MonoBehaviour
         {
             TotalClicks -= minimumClicksToUnlockTapUpgrade2;
             hasTapUpgrade2 += 1;
-            TotalClickPerTap += ClicksPerTap2;  
-            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClickPerTap.ToString("0");
+            TotalClicksPerTap += ClicksPerTap2;  
+            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClicksPerTap.ToString("0");
         }
     }
 
@@ -69,8 +71,8 @@ public class Manager : MonoBehaviour
         {
             TotalClicks -= minimumClicksToUnlockTapUpgrade3;
             hasTapUpgrade3 += 1;
-            TotalClickPerTap += ClicksPerTap3;  
-            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClickPerTap.ToString("0");
+            TotalClicksPerTap += ClicksPerTap3;  
+            ClicksPerTapText.text = "Clicks Per Tap : \n" + TotalClicksPerTap.ToString("0");
         }
     }
 
@@ -196,6 +198,9 @@ public class Manager : MonoBehaviour
     }
 
     public int TotalMult;
+    float saveInterval = 1f; // Save every second
+    float saveTime = 0; // time for the save
+
     public void Update()
     {
         TotalMult = hasUpgrade1 * autoClicksPerSecond1;
@@ -212,9 +217,17 @@ public class Manager : MonoBehaviour
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
         ClicksPerSecondText.text = "Clicks Per Second : " + TotalMult.ToString("0");
 
-        //save data
-        // PlayerPrefs.SetFloat("TotalClicks", TotalClicks);
-        // PlayerPrefs.SetInt("TotalClickPerTap", TotalClickPerTap);
-        // JSONSave.instance.SaveGame();
+        if (saveTime >= saveInterval)
+        {
+            playerData.TotalClicks = TotalClicks;
+            playerData.TotalClicksPerTap = TotalClicksPerTap;
+            JSONSave.instance.SaveGame(playerData);
+            saveTime = 0;
+        }
+        else
+        {
+            saveTime += Time.deltaTime;
+        }
+
     }
 }

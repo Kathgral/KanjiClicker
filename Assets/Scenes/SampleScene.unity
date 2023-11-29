@@ -631,47 +631,10 @@ MonoBehaviour:
   ClicksPerSecondText: {fileID: 1383436192}
   ClicksPerTapText: {fileID: 0}
   TotalClicks: 0
-  TotalClickPerTap: 1
-  hasTapUpgrade1: 0
-  ClicksPerTap1: 0
-  minimumClicksToUnlockTapUpgrade1: 0
-  hasTapUpgrade2: 0
-  ClicksPerTap2: 0
-  minimumClicksToUnlockTapUpgrade2: 0
-  hasTapUpgrade3: 0
-  ClicksPerTap3: 0
-  minimumClicksToUnlockTapUpgrade3: 0
-  hasUpgrade1: 0
-  autoClicksPerSecond1: 0
-  minimumClicksToUnlockUpgrade1: 0
-  hasUpgrade2: 0
-  autoClicksPerSecond2: 0
-  minimumClicksToUnlockUpgrade2: 0
-  hasUpgrade3: 0
-  autoClicksPerSecond3: 0
-  minimumClicksToUnlockUpgrade3: 0
-  hasUpgrade4: 0
-  autoClicksPerSecond4: 0
-  minimumClicksToUnlockUpgrade4: 0
-  hasUpgrade5: 0
-  autoClicksPerSecond5: 0
-  minimumClicksToUnlockUpgrade5: 0
-  hasUpgrade6: 0
-  autoClicksPerSecond6: 0
-  minimumClicksToUnlockUpgrade6: 0
-  hasUpgrade7: 0
-  autoClicksPerSecond7: 0
-  minimumClicksToUnlockUpgrade7: 0
-  hasUpgrade8: 0
-  autoClicksPerSecond8: 0
-  minimumClicksToUnlockUpgrade8: 0
-  hasUpgrade9: 0
-  autoClicksPerSecond9: 0
-  minimumClicksToUnlockUpgrade9: 0
-  hasUpgrade10: 0
-  autoClicksPerSecond10: 0
-  minimumClicksToUnlockUpgrade10: 0
-  TotalMult: 0
+  TotalClicksPerTap: 1
+  playerData:
+    TotalClicks: 0
+    TotalClicksPerTap: 0
 --- !u!4 &376883520
 Transform:
   m_ObjectHideFlags: 0
@@ -1609,6 +1572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353677273fdbd86499934ba3c4b742a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData:
+    TotalClicks: 0
+    TotalClicksPerTap: 0
 --- !u!4 &582216479
 Transform:
   m_ObjectHideFlags: 0
@@ -4931,5 +4897,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 1972374493}
   - {fileID: 642659970}
-  - {fileID: 376883520}
   - {fileID: 582216479}
+  - {fileID: 376883520}
