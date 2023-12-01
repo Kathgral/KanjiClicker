@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-// All the data to save/load
+// Class to store all data
 [System.Serializable]
 public class PlayerData
 {
@@ -13,19 +13,22 @@ public class PlayerData
 }
 
 
-// Functions to save and load
+// Class to save/load
 public class JSONSave : MonoBehaviour
 {
-    //public PlayerData playerData;  // Reference to the player data
-
     string saveFilePath;
     public static PlayerData playerData;
 
-    public static JSONSave instance;
     void Awake()
     {
-        instance = this;
         saveFilePath = Application.persistentDataPath + "/PlayerData.json";
+        LoadGame();
+    }
+
+    public void LoadDataToGameManager()
+    {
+        GameManager.TotalClicks = playerData.TotalClicks;
+        GameManager.TotalClicksPerTap = playerData.TotalClicksPerTap;
     }
 
     public void LoadGame()
@@ -43,13 +46,35 @@ public class JSONSave : MonoBehaviour
             Debug.Log("There is no save files to load!");
             Debug.Log("New game!");
         }
+        LoadDataToGameManager();
+    }
+
+    public void UpdateDataFromGameManager()
+    {
+        playerData.TotalClicks = GameManager.TotalClicks;
+        playerData.TotalClicksPerTap = GameManager.TotalClicksPerTap;        
     }
 
     public void SaveGame()
     {
+        UpdateDataFromGameManager();
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
         Debug.Log("Save file created at: " + saveFilePath);
     }
 
+    float saveInterval = 1f; // Save every second
+    float saveTime = 0; // count the time between saves
+
+    public void Update()
+    {
+        //save data
+        if (saveTime >= saveInterval){
+            SaveGame();
+            saveTime = 0;
+        }
+        else{
+            saveTime += Time.deltaTime;
+        }
+    }
 }

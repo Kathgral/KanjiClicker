@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-[System.Serializable]
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI ClicksTotalText;
@@ -13,16 +12,7 @@ public class GameManager : MonoBehaviour
 
     public static float TotalClicks;
     public static int TotalClicksPerTap;
-
-    void Start() {
-        JSONSave.instance.LoadGame();
-        TotalClicks = JSONSave.playerData.TotalClicks;
-        TotalClicksPerTap = JSONSave.playerData.TotalClicksPerTap;
-    }
-
     public static int TotalMult = 0;
-    float saveInterval = 1f; // Save every second
-    float saveTime = 0; // time for the save
 
     public void Update()
     {
@@ -39,20 +29,5 @@ public class GameManager : MonoBehaviour
         TotalClicks += TotalMult * Time.deltaTime;
         ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
         ClicksPerSecondText.text = "Clicks Per Second : " + TotalMult.ToString("0");
-
-
-        //save data
-        if (saveTime >= saveInterval)
-        {
-            JSONSave.playerData.TotalClicks = TotalClicks;
-            JSONSave.playerData.TotalClicksPerTap = TotalClicksPerTap;
-            JSONSave.instance.SaveGame();
-            saveTime = 0;
-        }
-        else
-        {
-            saveTime += Time.deltaTime;
-        }
-
     }
 }
