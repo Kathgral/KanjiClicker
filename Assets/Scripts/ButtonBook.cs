@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class ButtonBook : MonoBehaviour
 {
+    public AudioSource soundButton;
+
     public void AddClicksToManager(){
-        Manager.instance.AddClicks();
+        GameManager.TotalClicks += GameManager.TotalClicksPerTap;
+        soundButton.Play();
     }
 }

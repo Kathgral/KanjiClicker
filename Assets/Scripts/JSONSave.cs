@@ -19,7 +19,7 @@ public class JSONSave : MonoBehaviour
     //public PlayerData playerData;  // Reference to the player data
 
     string saveFilePath;
-    public PlayerData playerData;
+    public static PlayerData playerData;
 
     public static JSONSave instance;
     void Awake()
@@ -28,8 +28,9 @@ public class JSONSave : MonoBehaviour
         saveFilePath = Application.persistentDataPath + "/PlayerData.json";
     }
 
-    public PlayerData LoadGame()
+    public void LoadGame()
     {
+        playerData = new PlayerData();
         if (File.Exists(saveFilePath))
         {
             string loadPlayerData = File.ReadAllText(saveFilePath);
@@ -39,28 +40,16 @@ public class JSONSave : MonoBehaviour
         }
         else
         {
-            playerData = new PlayerData();
             Debug.Log("There is no save files to load!");
             Debug.Log("New game!");
         }
-        return playerData;
     }
 
-    public void SaveGame(PlayerData playerData)
+    public void SaveGame()
     {
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
         Debug.Log("Save file created at: " + saveFilePath);
     }
 
-    public void DeleteSaveFile()
-    {
-        if (File.Exists(saveFilePath))
-        {
-            File.Delete(saveFilePath);
-            Debug.Log("Save file deleted!");
-        }
-        else
-            Debug.Log("There is nothing to delete!");
-    }
 }
