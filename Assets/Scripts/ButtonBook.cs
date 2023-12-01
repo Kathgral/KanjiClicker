@@ -4,12 +4,14 @@ using UnityEngine.EventSystems; // Required for the event trigger interfaces
 
 public class ButtonBook : MonoBehaviour, IPointerDownHandler, IPointerUpHandler // Implement these interfaces
 {
-    public AudioSource soundButton;
+    public AudioClip buttonSound;
+    private AudioSource audioSource;
     public Image bookImage; // Reference to the book's Image component
     public float scaleIncrease = 1.1f; // Multiplier by which the book's scale will increase
     private Vector3 originalScale; // To store the original scale
 
     void Start() {
+        audioSource = GetComponent<AudioSource>();
         if (bookImage != null) {
             originalScale = bookImage.rectTransform.localScale; // Store the original scale
         } else {
@@ -23,9 +25,8 @@ public class ButtonBook : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
         }
         // You can also add your click logic here
         GameManager.TotalClicks += GameManager.TotalClicksPerTap;
-        if (soundButton != null) {
-            soundButton.Play();
-        }
+        audioSource.clip = buttonSound;
+        audioSource.Play();
     }
 
     public void OnPointerUp(PointerEventData eventData) {

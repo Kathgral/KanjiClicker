@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         // TotalMult += hasUpgrade9 * autoClicksPerSecond9;
         // TotalMult += hasUpgrade10 * autoClicksPerSecond10;
         TotalClicks += TotalMult * Time.deltaTime;
-        ClicksTotalText.text = "Total Clicks : " + TotalClicks.ToString("0");
-        ClicksPerSecondText.text = "Clicks Per Second : " + TotalMult.ToString("0");
+        ClicksTotalText.text = "Learning Points: " + TotalClicks.ToString("0");
+        ClicksPerSecondText.text = "Learning Points Per Second: " + TotalMult.ToString("0");
     }
 }
