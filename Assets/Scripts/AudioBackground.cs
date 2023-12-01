@@ -13,7 +13,6 @@ public class AudioBackground : MonoBehaviour
 
     void Update()
     {
-        audioSource = GetComponent<AudioSource>();
         if (!audioSource.isPlaying){
             PlayRandomSong();
         }
