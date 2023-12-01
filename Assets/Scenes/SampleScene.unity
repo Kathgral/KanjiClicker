@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 105980086}
   - component: {fileID: 105980085}
   - component: {fileID: 105980084}
+  - component: {fileID: 105980087}
   m_Layer: 5
   m_Name: ButtonBook
   m_TagString: Untagged
@@ -389,6 +390,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105980082}
   m_CullTransparentMesh: 1
+--- !u!114 &105980087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105980082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef1188726b179b4f9fe226f7e6258d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundButton: {fileID: 0}
+  bookImage: {fileID: 105980085}
+  scaleIncrease: 1.1
 --- !u!1 &144511020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3244,6 +3260,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundButton: {fileID: 917805259}
+  bookImage: {fileID: 0}
+  scaleIncrease: 0.1
 --- !u!1 &1112644995
 GameObject:
   m_ObjectHideFlags: 0
