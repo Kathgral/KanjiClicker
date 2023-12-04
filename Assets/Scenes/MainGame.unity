@@ -1590,15 +1590,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5B66"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f4bdaf1213c2f435aa7300c71cf4099b, type: 2}
-  m_sharedMaterial: {fileID: 2473148595210387012, guid: f4bdaf1213c2f435aa7300c71cf4099b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fb86057f5c12544cba494b7fee3d1b6, type: 2}
+  m_sharedMaterial: {fileID: 8181911831945822427, guid: 6fb86057f5c12544cba494b7fee3d1b6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1615,8 +1615,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 300
+  m_fontSizeBase: 300
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
