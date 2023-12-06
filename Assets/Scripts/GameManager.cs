@@ -3,11 +3,13 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI ClicksTotalText;
-    public TextMeshProUGUI ClicksPerSecondText;
+    public TextMeshProUGUI TotalPointsText;
+    public TextMeshProUGUI PointsPerSecondText;
+    public TextMeshProUGUI PointsPerClickText;
 
-    public static float TotalClicks;
-    public static int TotalClicksPerTap = 1;  // Initial value set to 1 for base tap effect
+    public static float TotalPoints;
+    public static float PointsPerClick;  // Initial value set to 1 for base tap effect
+    public static float PointsPerSecond;
     public static int TotalMult = 0;  // Represents the total multiplier effect
 
     // Additional variables for different upgrade types
@@ -23,15 +25,19 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // Update TotalClicks with passive income and auto clicks
-        TotalClicks += (PassiveIncomePerSecond + AutoClicksPerSecond * AutoClickSpeedMultiplier) * Time.deltaTime;
+        // Update TotalPoints with passive income and auto clicks
+        // TotalPoints += (PassiveIncomePerSecond + AutoClicksPerSecond * AutoClickSpeedMultiplier) * Time.deltaTime;
         
         // Update Total Mult considering all multipliers
-        TotalMult = TotalClicksPerTap * (int)CriticalClickMultiplier * (int)PrestigeMultiplier;
+        // TotalMult = PointsPerClick * (int)CriticalClickMultiplier * (int)PrestigeMultiplier;
+
+        // Update TotalPoints with passive points per second
+        TotalPoints += PointsPerSecond * Time.deltaTime;
 
         // Update UI
-        ClicksTotalText.text = "Learning Points: " + TotalClicks.ToString("0");
-        ClicksPerSecondText.text = "Learning Points Per Second: " + TotalMult.ToString("0");
+        TotalPointsText.text = "Learning Points: " + TotalPoints.ToString("0");
+        PointsPerClickText.text = "Learning Points Per Second: " + PointsPerClick;
+        PointsPerSecondText.text = "Learning Points Per Second: " + PointsPerSecond.ToString("0");
     }
 
     public void ApplyUpgradeEffect(Upgrade upgrade)
@@ -39,7 +45,7 @@ public class GameManager : MonoBehaviour
         switch (upgrade.Type)
         {
             case UpgradeType.Tap:
-                TotalClicksPerTap += upgrade.CurrentEffect;
+                PointsPerClick += upgrade.CurrentEffect;
                 // Update UI if necessary
                 break;
 

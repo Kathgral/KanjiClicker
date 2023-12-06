@@ -15,6 +15,7 @@ public class ButtonBook : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
 
     void Start() {
         audioSource = GetComponent<AudioSource>();
+        audioSource.clip = buttonSound;
         if (bookImage != null) {
             originalScale = bookImage.rectTransform.localScale; // Store the original scale
         } else {
@@ -28,8 +29,7 @@ public class ButtonBook : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
             CreateAndAnimateText(); // Create and animate the text
         }
         // Click logic
-        GameManager.TotalClicks += GameManager.TotalClicksPerTap;
-        audioSource.clip = buttonSound;
+        GameManager.TotalPoints += GameManager.PointsPerClick;
         audioSource.Play();
     }
 

@@ -8,8 +8,9 @@ using UnityEngine;
 public class PlayerData
 {
     // Don't forget to initialize the value when there is no save
-    public float TotalClicks = 0; 
-    public int TotalClicksPerTap = 1;
+    public float TotalPoints = 0; 
+    public float PointsPerClick = 1;
+    public float PointsPerSecond = 0;
 }
 
 
@@ -22,13 +23,15 @@ public class JSONSave : MonoBehaviour
     void Awake()
     {
         saveFilePath = Application.persistentDataPath + "/PlayerData.json";
+        Debug.Log("Save file at: " + saveFilePath);
         LoadGame();
     }
 
     public void LoadDataToGameManager()
     {
-        GameManager.TotalClicks = playerData.TotalClicks;
-        GameManager.TotalClicksPerTap = playerData.TotalClicksPerTap;
+        GameManager.TotalPoints = playerData.TotalPoints;
+        GameManager.PointsPerClick = playerData.PointsPerClick;
+        GameManager.PointsPerSecond = playerData.PointsPerSecond;
     }
 
     public void LoadGame()
@@ -39,7 +42,7 @@ public class JSONSave : MonoBehaviour
             string loadPlayerData = File.ReadAllText(saveFilePath);
             JsonUtility.FromJsonOverwrite(loadPlayerData, playerData);
             Debug.Log("Load game complete!");
-            Debug.Log("Loaded TotalClicks: " + playerData.TotalClicks);
+            Debug.Log("Loaded TotalPoints: " + playerData.TotalPoints);
         }
         else
         {
@@ -51,8 +54,9 @@ public class JSONSave : MonoBehaviour
 
     public void UpdateDataFromGameManager()
     {
-        playerData.TotalClicks = GameManager.TotalClicks;
-        playerData.TotalClicksPerTap = GameManager.TotalClicksPerTap;        
+        playerData.TotalPoints = GameManager.TotalPoints;
+        playerData.PointsPerClick = GameManager.PointsPerClick;
+        playerData.PointsPerSecond = GameManager.PointsPerSecond;
     }
 
     public void SaveGame()

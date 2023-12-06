@@ -23,8 +23,8 @@ public class Upgrades : MonoBehaviour
 {
     public TextMeshProUGUI ClicksPerTapText;
     
-    private float TotalClicks = GameManager.TotalClicks;  // Updated elsewhere
-    private int TotalClicksPerTap = GameManager.TotalClicksPerTap;  // Updated elsewhere
+    private float TotalClicks = GameManager.TotalPoints;  // Updated elsewhere
+    private float TotalClicksPerTap = GameManager.PointsPerClick;  // Updated elsewhere
 
     // Initialize your upgrades here
     Upgrade[] upgrades = new Upgrade[10];
