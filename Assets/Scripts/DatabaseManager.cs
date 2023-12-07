@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class CharacterData
 
 public class JsonDatabase
 {
-    public CharacterData ˆê; // The character "ˆê" is used as an example; you can add more characters as needed
+    public CharacterData Žµ; // The character "Žµ" is used as an example; you can add more characters as needed
 }
 
 public class DatabaseManager : MonoBehaviour
@@ -31,35 +32,74 @@ public class DatabaseManager : MonoBehaviour
 
     void Start()
     {
-        // Specify the file path relative to the "Resources" folder
-        string filePath = "Assets/Database/kanji.json"; // e.g., "CharacterDatabase"
+        string filePath = "kanji";
 
         // Load the JSON file
         TextAsset jsonFile = Resources.Load<TextAsset>(filePath);
 
         if (jsonFile != null)
         {
-            // Parse JSON data into the JsonDatabase class
-            JsonDatabase jsonDatabase = JsonUtility.FromJson<JsonDatabase>(jsonFile.text);
+            // Parse JSON data into a dictionary where the keys are strings (kanji characters)
+            // and the values are CharacterData objects
+            Dictionary<string, CharacterData> jsonDatabase = DeserializeJsonDatabase(jsonFile.text);
 
-            // Access the data
-            Debug.Log("Strokes: " + jsonDatabase.ˆê.strokes);
-            Debug.Log("Meanings: " + string.Join(", ", jsonDatabase.ˆê.meanings));
-
-            // Display the kanji character on the UI Text component
-            if (kanjiText != null)
+            // Check if the key "Žµ" exists in the dictionary
+            if (jsonDatabase.ContainsKey("Žµ"))
             {
-                kanjiText.text = jsonDatabase.ˆê.ToString(); // Assuming the kanji character is a string
+                // Access the data for "Žµ"
+                CharacterData characterData = jsonDatabase["Žµ"];
+
+                // Access the meanings array
+                string[] meanings = characterData.meanings;
+
+                // Display the first meaning on the UI Text component
+                if (meanings != null && meanings.Length > 0)
+                {
+                    if (kanjiText != null)
+                    {
+                        kanjiText.text = meanings[0];
+                    }
+                    else
+                    {
+                        Debug.LogWarning("UI Text component not assigned to the script.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Meanings array is null or empty for character 'Žµ'.");
+                }
             }
             else
             {
-                Debug.LogWarning("UI Text component not assigned to the script.");
+                Debug.LogError("Key 'Žµ' not found in the JSON database.");
             }
-
         }
         else
         {
             Debug.LogError("Failed to load JSON file: " + filePath);
         }
+    }
+
+    private Dictionary<string, CharacterData> DeserializeJsonDatabase(string jsonText)
+    {
+        Dictionary<string, CharacterData> result = new Dictionary<string, CharacterData>();
+
+        try
+        {
+            // Parse JSON data directly into a dictionary
+            var jsonDict = JsonUtility.FromJson<Dictionary<string, CharacterData>>(jsonText);
+
+            // Copy the entries from the parsed dictionary to the result dictionary
+            foreach (var entry in jsonDict)
+            {
+                result[entry.Key] = entry.Value;
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error deserializing JSON: " + e.Message);
+        }
+
+        return result;
     }
 }
