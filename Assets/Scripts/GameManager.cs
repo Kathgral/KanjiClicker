@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
         // Update UI
         TotalPointsText.text = "Learning Points: " + TotalPoints.ToString("0");
-        PointsPerClickText.text = "Learning Points Per Second: " + PointsPerClick;
+        PointsPerClickText.text = "Learning Points Per Click: " + PointsPerClick;
         PointsPerSecondText.text = "Learning Points Per Second: " + PointsPerSecond.ToString("0");
     }
 
