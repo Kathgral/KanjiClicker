@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -6,6 +7,9 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI TotalPointsText;
     public TextMeshProUGUI PointsPerSecondText;
     public TextMeshProUGUI PointsPerClickText;
+    public GameObject NewKanjiText;
+    public GameObject SenseiText;
+
 
     // It is best to add every data in the DataManager.playerData class so it can be saved
     public static int TotalMult = 0;  // Represents the total multiplier effect
@@ -20,10 +24,13 @@ public class GameManager : MonoBehaviour
     public static float PrestigeMultiplier = 1;
     public static float TotalClickMultiplier = 1f;
 
+
     void Start()
     {
         PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
         PointsPerSecondText.text = "Learning Points Per Second: " + DataManager.playerData.PointsPerSecond.ToString("0.0");
+        int NextLevel = DataManager.playerData.LevelKanji+1;
+        KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
     }
 
     private float pointsToAdd = 0; 
@@ -44,11 +51,35 @@ public class GameManager : MonoBehaviour
         {
             int wholePoints = Mathf.FloorToInt(pointsToAdd);
             DataManager.playerData.TotalPoints += wholePoints;
+            DataManager.playerData.TotalNumberOfPointsObtained += wholePoints;
             pointsToAdd -= wholePoints;
         }
 
         // Update UI
         TotalPointsText.text = "Learning Points: " + DataManager.playerData.TotalPoints.ToString("0");
+        Debug.Log("points "+DataManager.playerData.TotalNumberOfPointsObtained);
+        Debug.Log("cost "+KanjiManager.LearningPointsForNextKanji);
+        if (DataManager.playerData.TotalNumberOfPointsObtained >= KanjiManager.LearningPointsForNextKanji)
+        {
+            UnlockNewKanji();
+        }
+    }
+
+    public void UnlockNewKanji()
+    {
+        KanjiManager.indexLastKanjiUnlocked += 1;
+        DataManager.playerData.LevelKanji += 1;
+        int NextLevel = DataManager.playerData.LevelKanji+1;
+        KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
+        StartCoroutine(SwitchToKanjiMessage());
+    }
+
+    IEnumerator SwitchToKanjiMessage()
+    {
+        SenseiText.SetActive(false);
+        NewKanjiText.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        NewKanjiText.SetActive(false);
     }
 
 //     public void ApplyUpgradeEffect(Upgrade upgrade)

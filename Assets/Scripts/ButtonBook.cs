@@ -28,9 +28,11 @@ public class ButtonBook : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
             bookImage.rectTransform.localScale = originalScale * scaleIncrease; // Increase the size
             CreateAndAnimateText(); // Create and animate the text
         }
+        
         // Click logic
         DataManager.playerData.TotalPoints += DataManager.playerData.PointsPerClick;
         DataManager.playerData.TotalNumberOfClicks += 1;
+        DataManager.playerData.TotalNumberOfPointsObtained += DataManager.playerData.PointsPerClick;
         audioSource.Play();
     }
 

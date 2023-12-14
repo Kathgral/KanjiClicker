@@ -69,14 +69,23 @@ public class KanjiManager : MonoBehaviour
     public TextMeshProUGUI displayText;
     public GameObject objectKanjiDisplay;
     public TextMeshProUGUI kanjiNumberText;
-    List<int> unlockedKanji;
-    int indexKanji = 0;
-    List<KanjiData> kanjiDataList;
+    public static int indexLastKanjiUnlocked;
+    public static int LearningPointsForNextKanji;
+    public static int indexKanji=0;
+    public static int BaseCost;
+    public static int AdditionalCostFactor;
+    List<KanjiData> kanjiDataList; // All kanji of the csv
+
+    void Awake()
+    {
+        BaseCost = 20;
+        AdditionalCostFactor = 5;
+    }
 
     void Start()
     {
         objectKanjiDisplay.SetActive(false); // Deactivate the kanji display
-        unlockedKanji = new List<int> {0,1,9}; // start with 3 kanjis
+        indexLastKanjiUnlocked = 2 + DataManager.playerData.LevelKanji;
         TextAsset csvFile = Resources.Load<TextAsset>("kanji"); 
         string csvText = csvFile.text;
         kanjiDataList = CSVParser.Parse(csvText);
@@ -96,7 +105,7 @@ public class KanjiManager : MonoBehaviour
 
     void PrintNumber()
     {
-        kanjiNumberText.text = "" + (indexKanji+1) + " / " + unlockedKanji.Count;
+        kanjiNumberText.text = "" + (indexKanji+1) + " / " + (indexLastKanjiUnlocked+1);
     }
 
 
@@ -114,16 +123,16 @@ public class KanjiManager : MonoBehaviour
     public void PreviousKanjiOnClick()
     {
         indexKanji = indexKanji - 1;
-        if (indexKanji<0) {indexKanji = unlockedKanji.Count - 1;}
-        PrintKanji(kanjiDataList[unlockedKanji[indexKanji]]);
+        if (indexKanji<0) {indexKanji = indexLastKanjiUnlocked;}
+        PrintKanji(kanjiDataList[indexKanji]);
         PrintNumber();
     }
     
     public void NextKanjiOnClick()
     {
         indexKanji = indexKanji + 1;
-        if (indexKanji >= unlockedKanji.Count){indexKanji = 0;}
-        PrintKanji(kanjiDataList[unlockedKanji[indexKanji]]);
+        if (indexKanji > indexLastKanjiUnlocked){indexKanji = 0;}
+        PrintKanji(kanjiDataList[indexKanji]);
         PrintNumber();
     }
 }
