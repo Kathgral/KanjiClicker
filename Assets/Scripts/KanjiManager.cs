@@ -87,11 +87,12 @@ public class KanjiManager : MonoBehaviour
 
     void PrintKanji(KanjiData kanjiData)
     {
-        displayText.text = $"Kanji: \n{kanjiData.kanji}\n\n" +
-            $"Meanings: \n{kanjiData.wk_meanings.Replace("[", "").Replace("]", "").Replace("'", "")}\n\n" +
-            $"On readings: \n{kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "")}\n\n" +
-            $"Kun readings: \n{kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "")}";
+        displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
+            $"<b>Meanings:</b> \n{kanjiData.wk_meanings.Replace("[", "").Replace("]", "").Replace("'", "")}\n\n" +
+            $"<b>On readings:</b> \n{kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "")}\n\n" +
+            $"<b>Kun readings:</b> \n{kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "")}";
     }
+
 
     void PrintNumber()
     {
