@@ -32,8 +32,8 @@ public class Uprgrade2Button : MonoBehaviour
             CostPointsPerSecond = CostPointsPerSecond * MultCostPointsPerSecond;
         }
 
-        UpgradePointsPerClickText.text = "Cost to increase the number of points per click: \n" + CostPointsPerClick.ToString();
-        UpgradePointsPerSecondText.text = "Cost to increase the number of points per second: \n" + CostPointsPerSecond.ToString();
+        UpgradePointsPerClickText.text = "Increase the number of points per click: \n" + CostPointsPerClick.ToString();
+        UpgradePointsPerSecondText.text = "Increase the number of points per second: \n" + CostPointsPerSecond.ToString();
     }
 
     public void UpgradePointsPerClick() 
