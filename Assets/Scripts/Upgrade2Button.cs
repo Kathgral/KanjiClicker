@@ -11,12 +11,12 @@ public class Uprgrade2Button : MonoBehaviour
     public TextMeshProUGUI UpgradePointsPerClickText;
     public TextMeshProUGUI UpgradePointsPerSecondText;
 
-    public float BaseCostPointsPerClick = 100;
-    public float BaseCostPointsPerSecond = 50;
+    public float BaseCostPointsPerClick = 30;
+    public float BaseCostPointsPerSecond = 15;
     public float CostPointsPerClick;
     public float CostPointsPerSecond;
 
-    public float CalculateUpgradeCost(int Level, float BaseCost, float AdditionalCostFactor = 10)
+    public float CalculateUpgradeCost(int Level, float BaseCost, float AdditionalCostFactor = 5)
     {
         int NextLevel = Level + 1;
         float cost = BaseCost * NextLevel + AdditionalCostFactor * (Mathf.Pow(NextLevel, 2) - 1);

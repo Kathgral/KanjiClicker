@@ -7,6 +7,6 @@ public class PlayerData
     public float PointsPerSecond = 0;
     public int TotalNumberOfClicks = 0; // for the stats
     public float TotalNumberOfPointsObtained = 0;  // for the stats
-    public int LevelUpgradePointsPerSecond;
-    public int LevelUpgradePointsPerClick;
+    public int LevelUpgradePointsPerSecond = 0;
+    public int LevelUpgradePointsPerClick = 0;
 }
