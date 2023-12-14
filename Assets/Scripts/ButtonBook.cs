@@ -29,7 +29,8 @@ public class ButtonBook : MonoBehaviour, IPointerDownHandler, IPointerUpHandler 
             CreateAndAnimateText(); // Create and animate the text
         }
         // Click logic
-        GameManager.TotalPoints += GameManager.PointsPerClick;
+        DataManager.playerData.TotalPoints += DataManager.playerData.PointsPerClick;
+        DataManager.playerData.TotalNumberOfClicks += 1;
         audioSource.Play();
     }
 

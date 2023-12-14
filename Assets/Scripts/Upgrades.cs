@@ -22,9 +22,6 @@ public enum UpgradeType
 public class Upgrades : MonoBehaviour
 {
     public TextMeshProUGUI ClicksPerTapText;
-    
-    private float TotalClicks = GameManager.TotalPoints;  // Updated elsewhere
-    private float TotalClicksPerTap = GameManager.PointsPerClick;  // Updated elsewhere
 
     // Initialize your upgrades here
     Upgrade[] upgrades = new Upgrade[10];
@@ -74,9 +71,9 @@ public class Upgrades : MonoBehaviour
         Upgrade upgrade = upgrades[upgradeIndex];
         int cost = upgrade.CurrentCost;
 
-        if (TotalClicks >= cost)
+        if (DataManager.playerData.TotalPoints >= cost)
         {
-            TotalClicks -= cost;
+            DataManager.playerData.TotalPoints -= cost;
             upgrade.Level++;
             ApplyUpgradeEffect(upgrade);
         }
@@ -91,8 +88,8 @@ public class Upgrades : MonoBehaviour
             switch (upgrade.Type)
             {
                 case UpgradeType.Tap:
-                    TotalClicksPerTap += upgrade.CurrentEffect;
-                    ClicksPerTapText.text = "Clicks Per Tap: \n" + TotalClicksPerTap.ToString("0");
+                    DataManager.playerData.PointsPerClick += upgrade.CurrentEffect;
+                    ClicksPerTapText.text = "Clicks Per Tap: \n" + DataManager.playerData.PointsPerClick.ToString("0");
                     break;
 
                 case UpgradeType.AutoClick:

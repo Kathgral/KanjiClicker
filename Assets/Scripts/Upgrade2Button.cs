@@ -6,31 +6,28 @@ using TMPro;
 
 public class Uprgrade2Button : MonoBehaviour
 {
-    private float NextPointsPerClick = 2;
-    private float MultPointsPerClick = 2;
-    private float CostPointsPerClick = 100;
-    private float MultCostPointsPerClick = 2;
+    public TextMeshProUGUI PointsPerSecondText;
+    public TextMeshProUGUI PointsPerClickText;
     public TextMeshProUGUI UpgradePointsPerClickText;
-
-    private float NextPointsPerSecond = 1;
-    private float MultPointsPerSecond = 2;
-    private float CostPointsPerSecond = 50;
-    private float MultCostPointsPerSecond = 2;
     public TextMeshProUGUI UpgradePointsPerSecondText;
+
+    public float BaseCostPointsPerClick = 100;
+    public float BaseCostPointsPerSecond = 50;
+    public float CostPointsPerClick;
+    public float CostPointsPerSecond;
+
+    public float CalculateUpgradeCost(int Level, float BaseCost, float AdditionalCostFactor = 10)
+    {
+        int NextLevel = Level + 1;
+        float cost = BaseCost * NextLevel + AdditionalCostFactor * (Mathf.Pow(NextLevel, 2) - 1);
+        return cost;
+    }
 
     void Awake()
     {
         // Initialize the value with the saved data
-        while (GameManager.PointsPerClick >= NextPointsPerClick)
-        {
-            NextPointsPerClick = NextPointsPerClick * MultPointsPerClick;
-            CostPointsPerClick = CostPointsPerClick * MultCostPointsPerClick;
-        }
-        while (GameManager.PointsPerSecond >= NextPointsPerSecond)
-        {
-            NextPointsPerSecond = NextPointsPerSecond * MultPointsPerSecond;
-            CostPointsPerSecond = CostPointsPerSecond * MultCostPointsPerSecond;
-        }
+        CostPointsPerClick = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerClick, BaseCostPointsPerClick);
+        CostPointsPerSecond = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerSecond, BaseCostPointsPerSecond);
 
         UpgradePointsPerClickText.text = "Increase the number of points per click: \n" + CostPointsPerClick.ToString();
         UpgradePointsPerSecondText.text = "Increase the number of points per second: \n" + CostPointsPerSecond.ToString();
@@ -38,25 +35,27 @@ public class Uprgrade2Button : MonoBehaviour
 
     public void UpgradePointsPerClick() 
     {
-        if (GameManager.TotalPoints > CostPointsPerClick)
+        if (DataManager.playerData.TotalPoints > CostPointsPerClick)
         { 
-            GameManager.TotalPoints -= CostPointsPerClick;
-            GameManager.PointsPerClick = NextPointsPerClick;
-            NextPointsPerClick = NextPointsPerClick * MultPointsPerClick;
-            CostPointsPerClick = CostPointsPerClick * MultCostPointsPerClick;
+            DataManager.playerData.TotalPoints -= CostPointsPerClick;
+            DataManager.playerData.PointsPerClick += 1;
+            DataManager.playerData.LevelUpgradePointsPerClick += 1;
+            CostPointsPerClick = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerClick, BaseCostPointsPerClick);
             UpgradePointsPerClickText.text = "Cost to increase the number of points per click: \n" + CostPointsPerClick.ToString();
+            PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
         }
     }
 
     public void UpgradePointsPerSecond() 
     {
-        if (GameManager.TotalPoints > CostPointsPerSecond)
+        if (DataManager.playerData.TotalPoints > CostPointsPerSecond)
         { 
-            GameManager.TotalPoints -= CostPointsPerSecond;
-            GameManager.PointsPerSecond = NextPointsPerSecond;
-            NextPointsPerSecond = NextPointsPerSecond * MultPointsPerSecond;
-            CostPointsPerSecond = CostPointsPerSecond * MultCostPointsPerSecond;
-            UpgradePointsPerSecondText.text = "Cost to increase the number of points per second: \n" + CostPointsPerSecond.ToString();
+            DataManager.playerData.TotalPoints -= CostPointsPerSecond;
+            DataManager.playerData.PointsPerSecond += 0.5f;
+            DataManager.playerData.LevelUpgradePointsPerSecond += 1;
+            CostPointsPerSecond = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerSecond, BaseCostPointsPerSecond);
+            UpgradePointsPerSecondText.text = "Cost to increase the number of points per second: \n" + CostPointsPerSecond;
+            PointsPerSecondText.text = "Learning Points Per Second: " + DataManager.playerData.PointsPerSecond.ToString("0.0");
         }
     }
 }
