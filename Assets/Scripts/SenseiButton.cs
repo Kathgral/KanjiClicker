@@ -11,7 +11,7 @@ public class SenseiButton : MonoBehaviour
     public GameObject SenseiText;
     public void ActivateMessage()
     {
-        NewKanjiText.SetActive(false);
+        //NewKanjiText.SetActive(false);
         SenseiText.SetActive(!SenseiText.activeSelf);        
     }
 

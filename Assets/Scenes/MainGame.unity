@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 1800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &51384915
@@ -182,7 +182,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: You unlocked a new kanji !!!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7769896c8b4f640b987343b746c8a996, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
   m_sharedMaterial: {fileID: -7133424448788702540, guid: 7769896c8b4f640b987343b746c8a996, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &51384916
@@ -1860,6 +1860,7 @@ MonoBehaviour:
   PointsPerClickText: {fileID: 58368093}
   NewKanjiText: {fileID: 51384913}
   SenseiText: {fileID: 361245172}
+  NewUnlockedKanjiText: {fileID: 51384915}
 --- !u!114 &376883523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8091,7 +8092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1865285387
 RectTransform:
   m_ObjectHideFlags: 0

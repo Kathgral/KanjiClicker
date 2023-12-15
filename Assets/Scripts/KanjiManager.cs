@@ -74,7 +74,7 @@ public class KanjiManager : MonoBehaviour
     public static int indexKanji=0;
     public static int BaseCost;
     public static int AdditionalCostFactor;
-    List<KanjiData> kanjiDataList; // All kanji of the csv
+    public static List<KanjiData> kanjiDataList; // All kanji of the csv
     public static KanjiManager Instance;
 
     void Awake()

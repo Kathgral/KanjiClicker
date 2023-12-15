@@ -73,10 +73,12 @@ public class GameManager : MonoBehaviour
         KanjiManager.Instance.PrintNumber();
     }
 
+    public TextMeshProUGUI NewUnlockedKanjiText;
     IEnumerator SwitchToKanjiMessage()
     {
-        SenseiText.SetActive(false);
+        //SenseiText.SetActive(false);
         NewKanjiText.SetActive(true);
+        NewUnlockedKanjiText.text = "You unlocked a new kanji: " + KanjiManager.kanjiDataList[KanjiManager.indexLastKanjiUnlocked].kanji;
         yield return new WaitForSeconds(3.0f);
         NewKanjiText.SetActive(false);
     }
