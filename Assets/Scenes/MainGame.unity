@@ -1287,8 +1287,8 @@ MonoBehaviour:
   m_text: "Kanji:\n\u4EBA\u985E\u793E\u4F1A\u306E\u3059\u3079\u3066\u306E\u69CB\u6210\u54E1\u306E\u56FA\u6709\u306E\u5C0A\u53B3\u3068\u5E73\u7B49\u3067\u8B72\u308B\u3053\u3068\u306E\n\nMeanings:\nenter\n\nOn
     readings:\naaa\n\nKun readings:\naaa"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b5e00dbc88e35b140ba23e9f6c0b2ec9, type: 2}
-  m_sharedMaterial: {fileID: -2012171665602280844, guid: b5e00dbc88e35b140ba23e9f6c0b2ec9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
+  m_sharedMaterial: {fileID: 6945185925256271289, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3055,8 +3055,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5B66"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b5e00dbc88e35b140ba23e9f6c0b2ec9, type: 2}
-  m_sharedMaterial: {fileID: -2012171665602280844, guid: b5e00dbc88e35b140ba23e9f6c0b2ec9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
+  m_sharedMaterial: {fileID: 6945185925256271289, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8091,7 +8091,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1865285387
 RectTransform:
   m_ObjectHideFlags: 0
