@@ -75,11 +75,13 @@ public class KanjiManager : MonoBehaviour
     public static int BaseCost;
     public static int AdditionalCostFactor;
     List<KanjiData> kanjiDataList; // All kanji of the csv
+    public static KanjiManager Instance;
 
     void Awake()
     {
         BaseCost = 20;
         AdditionalCostFactor = 5;
+        Instance = this;
     }
 
     void Start()
@@ -97,13 +99,17 @@ public class KanjiManager : MonoBehaviour
     void PrintKanji(KanjiData kanjiData)
     {
         displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
-            $"<b>Meanings:</b> \n{kanjiData.wk_meanings.Replace("[", "").Replace("]", "").Replace("'", "")}\n\n" +
-            $"<b>On readings:</b> \n{kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "")}\n\n" +
-            $"<b>Kun readings:</b> \n{kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "")}";
+            $"<b>Meanings:</b> \n{kanjiData.wk_meanings.Replace("[", "").Replace("]", "").Replace("'", "")}";
+        if (kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "") != "") {
+            displayText.text += $"\n\n<b>On readings:</b> \n{kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "")}";
+        }
+        if (kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "") != "") {
+            displayText.text += $"\n\n<b>Kun readings:</b> \n{kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "")}";
+        }
     }
 
 
-    void PrintNumber()
+    public void PrintNumber()
     {
         kanjiNumberText.text = "" + (indexKanji+1) + " / " + (indexLastKanjiUnlocked+1);
     }

@@ -57,8 +57,6 @@ public class GameManager : MonoBehaviour
 
         // Update UI
         TotalPointsText.text = "Learning Points: " + DataManager.playerData.TotalPoints.ToString("0");
-        Debug.Log("points "+DataManager.playerData.TotalNumberOfPointsObtained);
-        Debug.Log("cost "+KanjiManager.LearningPointsForNextKanji);
         if (DataManager.playerData.TotalNumberOfPointsObtained >= KanjiManager.LearningPointsForNextKanji)
         {
             UnlockNewKanji();
@@ -72,6 +70,7 @@ public class GameManager : MonoBehaviour
         int NextLevel = DataManager.playerData.LevelKanji+1;
         KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
         StartCoroutine(SwitchToKanjiMessage());
+        KanjiManager.Instance.PrintNumber();
     }
 
     IEnumerator SwitchToKanjiMessage()

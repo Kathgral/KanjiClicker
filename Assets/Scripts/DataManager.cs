@@ -41,7 +41,7 @@ public class DataManager : MonoBehaviour
         Debug.Log("Save file created at: " + saveFilePath);
     }
 
-    float saveInterval = 1f; // Save every x second
+    float saveInterval = 5f; // Save every x second
     float saveTime = 0; // count the time between saves
 
     public void Update()
