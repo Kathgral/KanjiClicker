@@ -24,7 +24,7 @@ public class TextAnimation : MonoBehaviour
             textElement.transform.localScale = Vector3.one;
 
             // Pause for a moment before the next animation
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.8f);
 
             // Shrink in size
             elapsedTime = 0f;

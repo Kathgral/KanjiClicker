@@ -78,7 +78,7 @@ kanji;strokes;grade;freq;jlpt_old;jlpt_new;meanings;readings_on;readings_kun;wk_
 表;8;3;77;2;3;['Surface', 'Table', 'Chart', 'Diagram'];['ひょう'];['おもて', '-おもて', 'あらわ.す', 'あらわ.れる', 'あら.わす'];9;['Express'];['ひょう'];['あらわ', 'おもて'];['Life', 'Kick'];;;;
 戦;13;4;78;2;3;['War', 'Battle', 'Match'];['せん'];['いくさ', 'たたか.う', 'おのの.く', 'そよ.ぐ', 'わなな.く'];11;['War', 'Battle'];['せん'];['たたか'];['Simple', 'Drunkard'];;;;
 経;11;5;79;2;3;['Sutra', 'Longitude', 'Pass Thru', 'Expire', 'Warp'];['けい', 'きょう', 'きん'];['へ.る', 'た.つ', 'たていと', 'はか.る', 'のり'];20;['Passage of Time', 'Pass Through', 'Manage'];['けい'];['た', 'へ'];['Thread', 'Tombstone'];;;;
-通;10;2;80;3;4;['Traffic', 'Pass Through', 'Avenue', 'Commute', 'Counter For Letters;" Notes";" Documents";" Etc.']";['つう', 'つ'];['とお.る', 'とお.り', '-とお.り', '-どお.り', 'とお.す', 'とお.し', '-どお.し', 'かよ.う'];7;['Pass Through'];['つう'];['とお', 'かよ'];['Scooter', 'Mama', 'Task'];
+通;10;2;80;3;4;['Traffic', 'Pass Through', 'Avenue', 'Commute', 'Counter For Letters;" Notes";" Documents";" Etc.']";['つう', 'つ'];['とお.る', 'とお.り', '-とお.り', '-どお.り', 'とお.す', 'とお.し', '-どお.し', 'かよ.う'];;['Pass Through'];['つう'];['とお', 'かよ'];['Scooter', 'Mama', 'Task'];
 外;5;2;81;4;5;['Outside'];['がい', 'げ'];['そと', 'ほか', 'はず.す', 'はず.れる', 'と-'];3;['Outside'];['がい'];['そと', 'はず'];['Evening', 'Toe'];;;;
 最;12;4;82;2;3;['Utmost', 'Most', 'Extreme'];['さい', 'しゅ'];['もっと.も', 'つま'];10;['Most'];['さい'];['もっと'];['Sun', 'Ear', 'Stool'];;;;
 言;7;2;83;4;4;['Say', 'Word'];['げん', 'ごん'];['い.う', 'こと'];5;['Say'];['げん', 'ごん'];['い', 'こと'];['Say'];;;;
