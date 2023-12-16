@@ -9,7 +9,6 @@ public class KanjiQuizManager : MonoBehaviour
     public TextMeshProUGUI Kanji;
     public TextMeshProUGUI answerText;
     public List<Button> answerButtons; // Assign your 4 answer buttons here
-    public List<KanjiData> kanjiDataList;
     public KanjiData currentKanji;
     public List<string> currentOptions = new List<string>();
 

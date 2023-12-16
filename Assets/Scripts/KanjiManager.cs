@@ -46,13 +46,13 @@ public static class CSVParser
                         kanjiData.kanji = values[j];
                         break;
                     case "wk_meanings":
-                        kanjiData.wk_meanings = values[j];
+                        kanjiData.wk_meanings = values[j].Replace("[", "").Replace("]", "").Replace("'", "");
                         break;
                     case "wk_readings_on":
-                        kanjiData.wk_readings_on = values[j];
+                        kanjiData.wk_readings_on = values[j].Replace("[", "").Replace("]", "").Replace("'", "");
                         break;
                     case "wk_readings_kun":
-                        kanjiData.wk_readings_kun = values[j];
+                        kanjiData.wk_readings_kun = values[j].Replace("[", "").Replace("]", "").Replace("'", "");
                         break;
                 }
             }
@@ -99,12 +99,12 @@ public class KanjiManager : MonoBehaviour
     void PrintKanji(KanjiData kanjiData)
     {
         displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
-            $"<b>Meanings:</b> \n{kanjiData.wk_meanings.Replace("[", "").Replace("]", "").Replace("'", "")}";
-        if (kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "") != "") {
-            displayText.text += $"\n\n<b>On readings:</b> \n{kanjiData.wk_readings_on.Replace("[", "").Replace("]", "").Replace("'", "")}";
+            $"<b>Meanings:</b> \n{kanjiData.wk_meanings}";
+        if (kanjiData.wk_readings_on != "") {
+            displayText.text += $"\n\n<b>On readings:</b> \n{kanjiData.wk_readings_on}";
         }
-        if (kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "") != "") {
-            displayText.text += $"\n\n<b>Kun readings:</b> \n{kanjiData.wk_readings_kun.Replace("[", "").Replace("]", "").Replace("'", "")}";
+        if (kanjiData.wk_readings_kun != "") {
+            displayText.text += $"\n\n<b>Kun readings:</b> \n{kanjiData.wk_readings_kun}";
         }
     }
 
