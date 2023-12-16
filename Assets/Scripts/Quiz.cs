@@ -7,6 +7,7 @@ using System.Linq;
 public class KanjiQuizManager : MonoBehaviour
 {
     public TextMeshProUGUI Kanji;
+    public TextMeshProUGUI answerText;
     public List<Button> answerButtons; // Assign your 4 answer buttons here
     public List<KanjiData> kanjiDataList;
     public KanjiData currentKanji;
@@ -90,10 +91,12 @@ public class KanjiQuizManager : MonoBehaviour
         if (selectedOption == currentKanji.wk_meanings)
         {
             Debug.Log("Correct!");
+            answerText.text = "Correct!";
         }
         else
         {
-            Debug.Log("Wrong!");
+            Debug.Log("Incorrect!");
+            answerText.text = "Incorrect!";
         }
 
         GenerateQuiz(); // Generate the next question
