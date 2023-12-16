@@ -8,17 +8,12 @@ public class KanjiQuizManager : MonoBehaviour
 {
     public TextMeshProUGUI Kanji;
     public List<Button> answerButtons; // Assign your 4 answer buttons here
-    private List<KanjiData> kanjiDataList;
-    private KanjiData currentKanji;
-    private List<string> currentOptions = new List<string>();
+    public List<KanjiData> kanjiDataList;
+    public KanjiData currentKanji;
+    public List<string> currentOptions = new List<string>();
 
     void Start()
     {
-        // Load the Kanji data from the CSV file
-        TextAsset csvFile = Resources.Load<TextAsset>("kanji"); 
-        string csvText = csvFile.text;
-        kanjiDataList = CSVParser.Parse(csvText);
-
         GenerateQuiz();
     }
 
@@ -47,13 +42,37 @@ public class KanjiQuizManager : MonoBehaviour
     KanjiData GetRandomKanji()
     {
         // Select a random kanji from the unlocked list
-        return kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked)];
+        return KanjiManager.kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked)];
+
     }
 
-    void AddWrongOptions()
+        void AddWrongOptions()
     {
-        HashSet<string> uniqueMeanings = new HashSet<string>(kanjiDataList.SelectMany(k => k.meanings));
-        uniqueMeanings.Remove(currentKanji.wk_meanings); // Ensure no duplicate of the correct answer
+        // Your code might be expecting meanings to be an array, but it's actually a string.
+        // If you stored the meanings in the wk_meanings and expect them to be an array, split them here:
+        string[] correctMeanings = currentKanji.wk_meanings.Trim('[', ']', '\'').Split(new string[] { "', '" }, System.StringSplitOptions.RemoveEmptyEntries);
+        
+        // Assuming wk_meanings is a semicolon-separated list of meanings, for example: "['meaning1', 'meaning2']"
+        HashSet<string> uniqueMeanings = new HashSet<string>();
+        
+        // Safely attempt to add meanings to the HashSet
+        foreach (var kanji in KanjiManager.kanjiDataList)
+        {
+            if (!string.IsNullOrWhiteSpace(kanji.wk_meanings))
+            {
+                string[] meaningsArray = kanji.wk_meanings.Trim('[', ']', '\'').Split(new string[] { "', '" }, System.StringSplitOptions.RemoveEmptyEntries);
+                foreach (var meaning in meaningsArray)
+                {
+                    uniqueMeanings.Add(meaning);
+                }
+            }
+        }
+
+        // Remove the correct answer to ensure it's not duplicated in the wrong options
+        foreach (var meaning in correctMeanings)
+        {
+            uniqueMeanings.Remove(meaning);
+        }
 
         while (currentOptions.Count < 4)
         {
@@ -64,6 +83,7 @@ public class KanjiQuizManager : MonoBehaviour
 
         currentOptions = currentOptions.OrderBy(x => Random.value).ToList();
     }
+
 
     public void CheckAnswer(string selectedOption)
     {
