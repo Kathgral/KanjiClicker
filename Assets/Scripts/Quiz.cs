@@ -90,12 +90,12 @@ public class KanjiQuizManager : MonoBehaviour
         if (selectedOption == currentKanji.wk_meanings)
         {
             Debug.Log("Correct!");
-            answerText.text = "Correct!";
+            answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
         }
         else
         {
             Debug.Log("Incorrect!");
-            answerText.text = "Incorrect!";
+            answerText.text = "Incorrect!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
         }
 
         GenerateQuiz(); // Generate the next question
