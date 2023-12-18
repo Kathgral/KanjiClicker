@@ -46,13 +46,13 @@ public static class CSVParser
                         kanjiData.kanji = values[j];
                         break;
                     case "wk_meanings":
-                        kanjiData.wk_meanings = values[j].Replace("[", "").Replace("]", "").Replace("'", "");
+                        kanjiData.wk_meanings = values[j].Replace("[", "").Replace("]", "");
                         break;
                     case "wk_readings_on":
-                        kanjiData.wk_readings_on = values[j].Replace("[", "").Replace("]", "").Replace("'", "");
+                        kanjiData.wk_readings_on = values[j].Replace("[", "").Replace("]", "");
                         break;
                     case "wk_readings_kun":
-                        kanjiData.wk_readings_kun = values[j].Replace("[", "").Replace("]", "").Replace("'", "");
+                        kanjiData.wk_readings_kun = values[j].Replace("[", "").Replace("]", "");
                         break;
                 }
             }
