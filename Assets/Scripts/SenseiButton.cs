@@ -8,11 +8,39 @@ using TMPro;
 public class SenseiButton : MonoBehaviour
 {
     public GameObject NewKanjiText;
-    public GameObject SenseiText;
-    public void ActivateMessage()
+    public TextMeshProUGUI SenseiText;        
+    public static float lastUpdateTime;
+    private string currentText;
+    List<string> texts = new List<string> 
+        {
+            "You've got this!",
+            "Keep going!",
+            "Stay focused!",
+            "Believe in yourself!",
+            "Dream big!",
+            "Make it happen!",
+            "Stay positive!",
+            "Embrace the journey!",
+            "Chase your dreams!",
+            "You are unstoppable!",
+            "Turn obstacles into opportunities!",
+            "Strive for progress, not perfection!",
+            "Seize the day!",
+            "Be fearless!",
+            "You can do it!",
+            "You can overcome anything!",
+            "Don't give up!",
+            "You're stronger than you think!",
+            "Keep pushing forward!",
+            "Stay motivated!",
+        };
+
+    public void TextUpdater()
     {
-        //NewKanjiText.SetActive(false);
-        SenseiText.SetActive(!SenseiText.activeSelf);        
+        lastUpdateTime = Time.time;
+        // Choose a random text from the list (you can modify this logic as needed)
+        int randomIndex = Random.Range(0, texts.Count);
+        SenseiText.text = texts[randomIndex];
     }
 
 

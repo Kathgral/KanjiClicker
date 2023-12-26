@@ -291,7 +291,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -300}
+  m_AnchoredPosition: {x: 0, y: -470}
   m_SizeDelta: {x: 1800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &51384915
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_text: You unlocked a new kanji !!!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
-  m_sharedMaterial: {fileID: -7133424448788702540, guid: 7769896c8b4f640b987343b746c8a996, type: 2}
+  m_sharedMaterial: {fileID: 6945185925256271289, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1302,7 +1302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NewKanjiText: {fileID: 51384913}
-  SenseiText: {fileID: 361245172}
+  SenseiText: {fileID: 361245174}
   BonusTextObject: {fileID: 1649304006}
   BonusText: {fileID: 1649304008}
   cooldownSlider: {fileID: 1595042740}
@@ -1832,7 +1832,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 163638484}
         m_TargetAssemblyTypeName: SenseiButton, Assembly-CSharp
-        m_MethodName: ActivateMessage
+        m_MethodName: TextUpdater
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1946,7 +1946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &361245173
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1986,10 +1986,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU CAN DO IT !!!
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
-  m_sharedMaterial: {fileID: -7133424448788702540, guid: 7769896c8b4f640b987343b746c8a996, type: 2}
+  m_sharedMaterial: {fileID: 6945185925256271289, guid: f355138b559b09d48bb6892ff5348a98, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2018,7 +2018,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 150
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2052,7 +2052,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &361245175
@@ -2112,11 +2112,10 @@ MonoBehaviour:
   TotalPointsText: {fileID: 699356239}
   PointsPerSecondText: {fileID: 1383436192}
   PointsPerClickText: {fileID: 58368093}
+  SenseiText: {fileID: 361245174}
   NewKanjiText: {fileID: 51384913}
-  SenseiText: {fileID: 361245172}
   ImagePointsPerSecond: {fileID: 1700901339}
   ImagePointsPerClick: {fileID: 505039841}
-  canvasObject: {fileID: 1972374492}
   NewUnlockedKanjiText: {fileID: 51384915}
 --- !u!114 &376883523
 MonoBehaviour:

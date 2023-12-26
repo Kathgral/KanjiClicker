@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI TotalPointsText;
     public TextMeshProUGUI PointsPerSecondText;
     public TextMeshProUGUI PointsPerClickText;
+    public TextMeshProUGUI SenseiText;  
     public GameObject NewKanjiText;
-    public GameObject SenseiText;
     public Image ImagePointsPerSecond;
     public Image ImagePointsPerClick;
 
@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour
     public static float LuckFactor = 1;
     public static float PrestigeMultiplier = 1;
     public static float TotalClickMultiplier = 1f;
+
+    // Variables to change the colour of the upgrade button when you have enough points
+    private Color32 normalUpgradeColour = new Color32(255,0,0,140);
+    private Color32 buyableUpgradeColour = new Color32(255,121,0,190);
+    private bool buyableUpgradePointsPerSecond;
+    private bool buyableUpgradePointsPerClick;
 
 
     void Start()
@@ -64,18 +70,26 @@ public class GameManager : MonoBehaviour
             UnlockNewKanji();
         }
 
-        // Change the colour of the upgrade button when you have enough money to buy it
-        Color32 normalcolour = new Color32(255,0,0,140);
-        Color32 newcolour = new Color32(255,121,0,190);
-        if (DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerSecond){
-            ImagePointsPerSecond.color = newcolour;
-        }
-        else {ImagePointsPerSecond.color = normalcolour;}
+        // Change the colour of the upgrade button when you have enough money to buy it      
+        bool statePointsForSecondUpgrade = DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerSecond;
+        bool statePointsForClickUpgrade = DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerClick;
 
-        if (DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerClick){
-            ImagePointsPerClick.color = newcolour;
+        if (statePointsForSecondUpgrade != buyableUpgradePointsPerSecond)
+        {
+            ImagePointsPerSecond.color = statePointsForSecondUpgrade ? buyableUpgradeColour : normalUpgradeColour;
+            buyableUpgradePointsPerSecond = statePointsForSecondUpgrade;
         }
-        else{ImagePointsPerClick.color = normalcolour;}
+
+        if (statePointsForClickUpgrade != buyableUpgradePointsPerClick)
+        {
+            ImagePointsPerClick.color = statePointsForClickUpgrade ? buyableUpgradeColour : normalUpgradeColour;
+            buyableUpgradePointsPerClick = statePointsForClickUpgrade;
+        }
+
+        // Check if the sensei button hasn't been called for 3 seconds to delete its message 
+        if (Time.time - SenseiButton.lastUpdateTime >= 3f){
+            SenseiText.text = "";
+        }
     }
 
     public void UnlockNewKanji()
@@ -84,14 +98,13 @@ public class GameManager : MonoBehaviour
         DataManager.playerData.LevelKanji += 1;
         int NextLevel = DataManager.playerData.LevelKanji+1;
         KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
-        StartCoroutine(SwitchToKanjiMessage());
+        StartCoroutine(KanjiMessage());
         KanjiManager.Instance.PrintNumber();
     }
 
     public TextMeshProUGUI NewUnlockedKanjiText;
-    IEnumerator SwitchToKanjiMessage()
+    IEnumerator KanjiMessage()
     {
-        //SenseiText.SetActive(false);
         NewKanjiText.SetActive(true);
         NewUnlockedKanjiText.text = "You unlocked a new kanji: " + KanjiManager.kanjiDataList[KanjiManager.indexLastKanjiUnlocked].kanji;
         yield return new WaitForSeconds(3.0f);
