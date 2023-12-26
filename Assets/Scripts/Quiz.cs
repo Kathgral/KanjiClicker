@@ -91,6 +91,10 @@ public class KanjiQuizManager : MonoBehaviour
         {
             Debug.Log("Correct!");
             answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+            // Earn points if you have a correct answer
+            float rewardPoints = DataManager.playerData.PointsPerClick * 10;
+            DataManager.playerData.TotalPoints += rewardPoints;
+            DataManager.playerData.TotalNumberOfPointsObtained += rewardPoints;
         }
         else
         {

@@ -6,6 +6,12 @@ public class SecretSequence : MonoBehaviour
 {
     private List<int> clickedSequence = new List<int>();
     private List<int> secretCode = new List<int> { 1,2,2,1,3,3,3,1 };
+    private bool AllowSecretReward;
+
+    void Awake()
+    {
+        AllowSecretReward = true;
+    }
 
     public void Button1(){
         clickedSequence.Add(1);
@@ -42,10 +48,14 @@ public class SecretSequence : MonoBehaviour
 
     void UnlockReward()
     {
-        Debug.Log("Secret code unlocked! You get a reward!");
-        float bonusSecretReward = DataManager.playerData.TotalNumberOfPointsObtained;
-        DataManager.playerData.TotalPoints += bonusSecretReward;
-        DataManager.playerData.TotalNumberOfPointsObtained += bonusSecretReward;
+        Debug.Log("Secret code unlocked!");
+        if (AllowSecretReward){  
+            float bonusSecretReward = DataManager.playerData.TotalNumberOfPointsObtained;
+            DataManager.playerData.TotalPoints += bonusSecretReward;
+            DataManager.playerData.TotalNumberOfPointsObtained += bonusSecretReward;
+            ResetSequence();
+            AllowSecretReward = false;
+        }
     }
 
     void ResetSequence()
