@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI PointsPerClickText;
     public GameObject NewKanjiText;
     public GameObject SenseiText;
-
+    public Image ImagePointsPerSecond;
+    public Image ImagePointsPerClick;
 
     // It is best to add every data in the DataManager.playerData class so it can be saved
     public static int TotalMult = 0;  // Represents the total multiplier effect
@@ -61,6 +63,19 @@ public class GameManager : MonoBehaviour
         {
             UnlockNewKanji();
         }
+
+        // Change the colour of the upgrade button when you have enough money to buy it
+        Color32 normalcolour = new Color32(255,0,0,140);
+        Color32 newcolour = new Color32(255,121,0,190);
+        if (DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerSecond){
+            ImagePointsPerSecond.color = newcolour;
+        }
+        else {ImagePointsPerSecond.color = normalcolour;}
+
+        if (DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerClick){
+            ImagePointsPerClick.color = newcolour;
+        }
+        else{ImagePointsPerClick.color = normalcolour;}
     }
 
     public void UnlockNewKanji()

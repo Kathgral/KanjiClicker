@@ -13,8 +13,8 @@ public class Uprgrade2Button : MonoBehaviour
 
     private int BaseCostPointsPerClick = 30;
     private int BaseCostPointsPerSecond = 15;
-    private int CostPointsPerClick;
-    private int CostPointsPerSecond;
+    public static int CostPointsPerClick;
+    public static int CostPointsPerSecond;
 
     public int CalculateUpgradeCost(int Level, int BaseCost, int AdditionalCostFactor = 5)
     {
