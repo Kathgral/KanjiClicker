@@ -24,7 +24,6 @@ public class DataManager : MonoBehaviour
             string loadPlayerData = File.ReadAllText(saveFilePath);
             JsonUtility.FromJsonOverwrite(loadPlayerData, playerData);
             Debug.Log("Load game complete!");
-            Debug.Log("Loaded TotalPoints: " + playerData.TotalPoints);
         }
         else
         {
@@ -38,10 +37,10 @@ public class DataManager : MonoBehaviour
     {
         string savePlayerData = JsonUtility.ToJson(playerData);
         File.WriteAllText(saveFilePath, savePlayerData);
-        Debug.Log("Save file created at: " + saveFilePath);
+        //Debug.Log("Save file created at: " + saveFilePath);
     }
 
-    float saveInterval = 5f; // Save every x second
+    float saveInterval = 1f; // Save every x second
     float saveTime = 0; // count the time between saves
 
     public void Update()

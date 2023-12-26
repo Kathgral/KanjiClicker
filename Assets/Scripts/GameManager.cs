@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI PointsPerClickText;
     public TextMeshProUGUI SenseiText;  
     public GameObject NewKanjiText;
+    public GameObject ProtectiveScreen;
     public Image ImagePointsPerSecond;
     public Image ImagePointsPerClick;
 
@@ -32,7 +33,14 @@ public class GameManager : MonoBehaviour
     private bool buyableUpgradePointsPerSecond;
     private bool buyableUpgradePointsPerClick;
 
+    // Variables to avoid that the click from the starting screen goes to the game screen
+    bool boolProtectiveScreen = false;
+    float activationTimer = 0.1f;
 
+    void Awake()
+    {
+        ProtectiveScreen.SetActive(true);
+    }
     void Start()
     {
         PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
@@ -44,6 +52,17 @@ public class GameManager : MonoBehaviour
     private float pointsToAdd = 0; 
     void Update()
     {
+        // To avoid that the click from the starting screen goes to the game screen
+        if (!boolProtectiveScreen)
+        {
+            activationTimer -= Time.deltaTime;
+
+            if (activationTimer <= 0.0f)
+            {
+                boolProtectiveScreen = true;
+                ProtectiveScreen.SetActive(false);
+            }
+        }
         // Update TotalPoints with passive income and auto clicks
         // TotalPoints += (PassiveIncomePerSecond + AutoClicksPerSecond * AutoClickSpeedMultiplier) * Time.deltaTime;
         
@@ -68,6 +87,7 @@ public class GameManager : MonoBehaviour
         if (DataManager.playerData.TotalNumberOfPointsObtained >= KanjiManager.LearningPointsForNextKanji)
         {
             UnlockNewKanji();
+            BackgroundManager.Instance.ShowNextImage();
         }
 
         // Change the colour of the upgrade button when you have enough money to buy it      
@@ -111,59 +131,4 @@ public class GameManager : MonoBehaviour
         NewKanjiText.SetActive(false);
     }
 
-//     public void ApplyUpgradeEffect(Upgrade upgrade)
-//     {
-//         switch (upgrade.Type)
-//         {
-//             case UpgradeType.Tap:
-//                 PointsPerClick += upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.AutoClick:
-//                 AutoClicksPerSecond += upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.Multiplier:
-//                 TotalMult *= upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.Efficiency:
-//                 CostReductionFactor *= upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.Speed:
-//                 AutoClickSpeedMultiplier *= upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.Bonus:
-//                 BonusClickChance += upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.CriticalClick:
-//                 CriticalClickMultiplier *= upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.PassiveIncome:
-//                 PassiveIncomePerSecond += upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.Luck:
-//                 LuckFactor *= upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-
-//             case UpgradeType.Prestige:
-//                 PrestigeMultiplier *= upgrade.CurrentEffect;
-//                 // Update UI if necessary
-//                 break;
-//         }
-//     }
 }
