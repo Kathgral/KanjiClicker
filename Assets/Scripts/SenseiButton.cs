@@ -44,12 +44,12 @@ public class SenseiButton : MonoBehaviour
     }
 
 
-    private float multBonusPoints = 10;
+    private float multBonusPoints = 5;
     private Queue<float> clickTimes = new Queue<float>();
     private int queueLength = 0;
     private float interval = 5f; // Time interval for counting clicks
     private bool isBonusOnCooldown = false;
-    private float cooldownDuration = 10f;
+    private float cooldownDuration = 15f;
     private int NbOfClicksRequired = 20;
 
     public void AddClicks()
