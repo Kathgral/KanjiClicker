@@ -11,8 +11,8 @@ public class Uprgrade2Button : MonoBehaviour
     public TextMeshProUGUI UpgradePointsPerClickText;
     public TextMeshProUGUI UpgradePointsPerSecondText;
 
-    private int BaseCostPointsPerClick = 30;
-    private int BaseCostPointsPerSecond = 15;
+    private int BaseCostPointsPerClick = 60;
+    private int BaseCostPointsPerSecond = 40;
     public static int CostPointsPerClick;
     public static int CostPointsPerSecond;
 

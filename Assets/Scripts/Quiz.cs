@@ -42,8 +42,7 @@ public class KanjiQuizManager : MonoBehaviour
     KanjiData GetRandomKanji()
     {
         // Select a random kanji from the unlocked list
-        return KanjiManager.kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked)];
-
+        return KanjiManager.kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked+1)];
     }
 
         void AddWrongOptions()
@@ -56,7 +55,7 @@ public class KanjiQuizManager : MonoBehaviour
         HashSet<string> uniqueMeanings = new HashSet<string>();
         
         // Safely attempt to add meanings to the HashSet
-        foreach (var kanji in KanjiManager.kanjiDataList)
+        foreach (var kanji in KanjiManager.kanjiDataList.GetRange(0, KanjiManager.indexLastKanjiUnlocked+1))
         {
             if (!string.IsNullOrWhiteSpace(kanji.wk_meanings))
             {

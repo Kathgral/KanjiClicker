@@ -21,9 +21,10 @@ public class Settings : MonoBehaviour
     void OnVolumeChanged(float volume)
     {
         volumeValue.text = "" + volume;
-        float normalizedVolume = volume / 10.0f;
+        float normalizedVolume = volume / 5.0f;
         audioSourceBackground.volume = normalizedVolume / 2;
         audioSourceBook.volume = normalizedVolume;
+        DataManager.playerData.Volume = (int) volume;
     }    
 }
 

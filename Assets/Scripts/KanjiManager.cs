@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class KanjiData
@@ -77,9 +78,12 @@ public class KanjiManager : MonoBehaviour
     public static List<KanjiData> kanjiDataList; // All kanji of the csv
     public static KanjiManager Instance;
 
+    public Slider kanjiSlider_;
+    public static Slider kanjiSlider;
+
     void Awake()
     {
-        BaseCost = 20;
+        BaseCost = 100;
         AdditionalCostFactor = 5;
         Instance = this;
     }
@@ -87,12 +91,15 @@ public class KanjiManager : MonoBehaviour
     void Start()
     {
         objectKanjiDisplay.SetActive(false); // Deactivate the kanji display
-        indexLastKanjiUnlocked = 2 + DataManager.playerData.LevelKanji;
+        indexLastKanjiUnlocked = 3 + DataManager.playerData.LevelKanji;
         TextAsset csvFile = Resources.Load<TextAsset>("kanji"); 
         string csvText = csvFile.text;
         kanjiDataList = CSVParser.Parse(csvText);
         PrintKanji(kanjiDataList[indexKanji]);
         PrintNumber();
+        kanjiSlider = kanjiSlider_;
+        kanjiSlider.onValueChanged.AddListener(OnSliderValueChanged);
+        UpdateSliderValue();
     }
 
 
@@ -132,6 +139,7 @@ public class KanjiManager : MonoBehaviour
         if (indexKanji<0) {indexKanji = indexLastKanjiUnlocked;}
         PrintKanji(kanjiDataList[indexKanji]);
         PrintNumber();
+        kanjiSlider.value = indexKanji;
     }
     
     public void NextKanjiOnClick()
@@ -140,6 +148,21 @@ public class KanjiManager : MonoBehaviour
         if (indexKanji > indexLastKanjiUnlocked){indexKanji = 0;}
         PrintKanji(kanjiDataList[indexKanji]);
         PrintNumber();
+        kanjiSlider.value = indexKanji;
+    }
+
+    // slider to change kanji
+    void OnSliderValueChanged(float value)
+    {
+        indexKanji =  Mathf.RoundToInt(value);
+        PrintKanji(kanjiDataList[indexKanji]);
+        PrintNumber();
+    }
+
+    private void UpdateSliderValue()
+    {
+        kanjiSlider.maxValue = indexLastKanjiUnlocked;
+        kanjiSlider.value = indexKanji;
     }
 }
 

@@ -27,9 +27,7 @@ public class GameManager : MonoBehaviour
     public static float PrestigeMultiplier = 1;
     public static float TotalClickMultiplier = 1f;
 
-    // Variables to change the colour of the upgrade button when you have enough points
-    private Color32 normalUpgradeColour = new Color32(255,0,0,140);
-    private Color32 buyableUpgradeColour = new Color32(255,121,0,190);
+    // Variables to change the color of the upgrade button when you have enough points
     private bool buyableUpgradePointsPerSecond;
     private bool buyableUpgradePointsPerClick;
 
@@ -46,7 +44,18 @@ public class GameManager : MonoBehaviour
         PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
         PointsPerSecondText.text = "Learning Points Per Second: " + DataManager.playerData.PointsPerSecond.ToString("0.0");
         int NextLevel = DataManager.playerData.LevelKanji+1;
-        KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
+        KanjiManager.LearningPointsForNextKanji = CostNextKanji(NextLevel, KanjiManager.BaseCost);
+        //KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
+    }
+
+    int CostNextKanji(int level, int BaseCost, int AdditionalCostFactor = 5)
+    {
+        int cost = 0;
+        for (int i = 1; i <= level; i++)
+        {
+            cost += BaseCost * i + AdditionalCostFactor * ((int)Mathf.Pow(i, 2) - 1);
+        }
+        return cost;
     }
 
     private float pointsToAdd = 0; 
@@ -90,19 +99,19 @@ public class GameManager : MonoBehaviour
             BackgroundManager.Instance.ShowNextImage();
         }
 
-        // Change the colour of the upgrade button when you have enough money to buy it      
+        // Change the color of the upgrade button when you have enough money to buy it      
         bool statePointsForSecondUpgrade = DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerSecond;
         bool statePointsForClickUpgrade = DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerClick;
 
         if (statePointsForSecondUpgrade != buyableUpgradePointsPerSecond)
         {
-            ImagePointsPerSecond.color = statePointsForSecondUpgrade ? buyableUpgradeColour : normalUpgradeColour;
+            ImagePointsPerSecond.color = statePointsForSecondUpgrade ? BackgroundManager.buyableUpgradeColor : BackgroundManager.normalUpgradeColor;
             buyableUpgradePointsPerSecond = statePointsForSecondUpgrade;
         }
 
         if (statePointsForClickUpgrade != buyableUpgradePointsPerClick)
         {
-            ImagePointsPerClick.color = statePointsForClickUpgrade ? buyableUpgradeColour : normalUpgradeColour;
+            ImagePointsPerClick.color = statePointsForClickUpgrade ? BackgroundManager.buyableUpgradeColor : BackgroundManager.normalUpgradeColor;
             buyableUpgradePointsPerClick = statePointsForClickUpgrade;
         }
 
@@ -120,6 +129,7 @@ public class GameManager : MonoBehaviour
         KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
         StartCoroutine(KanjiMessage());
         KanjiManager.Instance.PrintNumber();
+        KanjiManager.kanjiSlider.maxValue = KanjiManager.indexLastKanjiUnlocked;
     }
 
     public TextMeshProUGUI NewUnlockedKanjiText;

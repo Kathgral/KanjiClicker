@@ -10,6 +10,6 @@ public class PlayerData
     public int LevelUpgradePointsPerSecond = 0;
     public int LevelUpgradePointsPerClick = 0;
     public int LevelKanji = 0;
-    public int Volume = 10;
+    public int Volume = 5;
     public int indexBackgroundImage = 0;
 }
