@@ -91,16 +91,17 @@ public class KanjiQuizManager : MonoBehaviour
             Debug.Log("Correct!");
             answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
             // Earn points if you have a correct answer
-            float rewardPoints = DataManager.playerData.PointsPerClick * 10;
+            int rewardPoints = DataManager.playerData.PointsPerClick * 10;
             DataManager.playerData.TotalPoints += rewardPoints;
             DataManager.playerData.TotalNumberOfPointsObtained += rewardPoints;
+            DataManager.playerData.GoodAnswersQuiz += 1;
         }
         else
         {
             Debug.Log("Incorrect!");
             answerText.text = "Incorrect!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
         }
-
+        DataManager.playerData.AnswersQuiz += 1;
         GenerateQuiz(); // Generate the next question
     }
 }

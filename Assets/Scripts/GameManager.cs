@@ -93,10 +93,10 @@ public class GameManager : MonoBehaviour
 
         // Update UI
         TotalPointsText.text = "Learning Points: " + DataManager.playerData.TotalPoints.ToString("0");
-        if (DataManager.playerData.TotalNumberOfPointsObtained >= KanjiManager.LearningPointsForNextKanji)
+        if (DataManager.playerData.TotalNumberOfPointsObtained >= KanjiManager.LearningPointsForNextKanji && KanjiManager.indexLastKanjiUnlocked < KanjiManager.LastKanjiUnlockable)
         {
             UnlockNewKanji();
-            BackgroundManager.Instance.ShowNextImage();
+            BackgroundManager.Instance.ShowNextMonth();
         }
 
         // Change the color of the upgrade button when you have enough money to buy it      
@@ -123,13 +123,16 @@ public class GameManager : MonoBehaviour
 
     public void UnlockNewKanji()
     {
-        KanjiManager.indexLastKanjiUnlocked += 1;
-        DataManager.playerData.LevelKanji += 1;
-        int NextLevel = DataManager.playerData.LevelKanji+1;
-        KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
-        StartCoroutine(KanjiMessage());
-        KanjiManager.Instance.PrintNumber();
-        KanjiManager.kanjiSlider.maxValue = KanjiManager.indexLastKanjiUnlocked;
+        if (KanjiManager.indexLastKanjiUnlocked < KanjiManager.LastKanjiUnlockable)
+        {
+            KanjiManager.indexLastKanjiUnlocked += 1;
+            DataManager.playerData.LevelKanji += 1;
+            int NextLevel = DataManager.playerData.LevelKanji+1;
+            KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
+            StartCoroutine(KanjiMessage());
+            KanjiManager.Instance.PrintNumber();
+            KanjiManager.kanjiSlider.maxValue = KanjiManager.indexLastKanjiUnlocked;
+        }
     }
 
     public TextMeshProUGUI NewUnlockedKanjiText;

@@ -44,7 +44,7 @@ public class SenseiButton : MonoBehaviour
     }
 
 
-    private float multBonusPoints = 5;
+    private int multBonusPoints = 5;
     private Queue<float> clickTimes = new Queue<float>();
     private int queueLength = 0;
     private float interval = 5f; // Time interval for counting clicks
@@ -75,7 +75,7 @@ public class SenseiButton : MonoBehaviour
             if (clickTimes.Count >= NbOfClicksRequired)
             {
                 // Award bonus points
-                float awardedPoints = DataManager.playerData.PointsPerClick * multBonusPoints * clickTimes.Count;
+                int awardedPoints = DataManager.playerData.PointsPerClick * multBonusPoints * clickTimes.Count;
                 DataManager.playerData.TotalPoints += awardedPoints;
                 DataManager.playerData.TotalNumberOfPointsObtained += awardedPoints;
                 // Start the cooldown

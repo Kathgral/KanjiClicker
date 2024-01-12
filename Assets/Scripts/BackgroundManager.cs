@@ -69,7 +69,7 @@ public class BackgroundManager : MonoBehaviour
     }
 
     // Call this function to change the image to the next index in the list
-    public void ShowNextImage()
+    public void ShowNextMonth()
     {
         DataManager.playerData.indexBackgroundImage = (DataManager.playerData.indexBackgroundImage + 1) % imageList.Count;
         backgroundImage.sprite = imageList[DataManager.playerData.indexBackgroundImage];
