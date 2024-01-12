@@ -6356,7 +6356,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2113847081}
         m_TargetAssemblyTypeName: BackgroundManager, Assembly-CSharp
-        m_MethodName: ShowNextImage
+        m_MethodName: ShowNextMonth
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
