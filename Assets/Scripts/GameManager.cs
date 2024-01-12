@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
             KanjiManager.indexLastKanjiUnlocked += 1;
             DataManager.playerData.LevelKanji += 1;
             int NextLevel = DataManager.playerData.LevelKanji+1;
-            KanjiManager.LearningPointsForNextKanji = KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
+            KanjiManager.LearningPointsForNextKanji = CostNextKanji(NextLevel, KanjiManager.BaseCost);
             StartCoroutine(KanjiMessage());
             KanjiManager.Instance.PrintNumber();
             KanjiManager.kanjiSlider.maxValue = KanjiManager.indexLastKanjiUnlocked;

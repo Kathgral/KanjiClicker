@@ -78,6 +78,7 @@ public class KanjiManager : MonoBehaviour
     public static List<KanjiData> kanjiDataList; // All kanji of the csv
     public static KanjiManager Instance;
 
+    private int initialNumberOfKanji = 9; // n+1 kanji
     public static int LastKanjiUnlockable = 2500; // lock the number of kanji unlockable (index so n+1 kanji)
 
     public Slider kanjiSlider_;
@@ -93,7 +94,7 @@ public class KanjiManager : MonoBehaviour
     void Start()
     {
         objectKanjiDisplay.SetActive(false); // Deactivate the kanji display
-        indexLastKanjiUnlocked = 3 + DataManager.playerData.LevelKanji; // Start with 3+1=4 kanji
+        indexLastKanjiUnlocked = initialNumberOfKanji + DataManager.playerData.LevelKanji;
         TextAsset csvFile = Resources.Load<TextAsset>("kanji"); 
         string csvText = csvFile.text;
         kanjiDataList = CSVParser.Parse(csvText);

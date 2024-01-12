@@ -22,9 +22,13 @@ public class BackgroundManager : MonoBehaviour
     public static Color32 normalUpgradeColor;
     public static Color32 buyableUpgradeColor;
 
-    private static Color32 SColor = new Color32(0,200,0,255);
-    private static Color32 SNormalColor = new Color32(7,135,0,200);
+    private static Color32 SColor = new Color32(0,230,0,255);
+    private static Color32 SNormalColor = new Color32(0,160,0,200);
     private static Color32 SBuyableUpgradeColor = new Color32(0,230,0,200);
+
+    private static Color32 SuColor = new Color32(0,200,0,255);
+    private static Color32 SuNormalColor = new Color32(10,135,0,200);
+    private static Color32 SuBuyableUpgradeColor = new Color32(40,210,40,200);
 
     private static Color32 FColor = new Color32(255,121,0,200);
     private static Color32 FNormalColor = new Color32(255,0,0,170);
@@ -34,9 +38,9 @@ public class BackgroundManager : MonoBehaviour
     private static Color32 WNormalColor = new Color32(0,70,200,200);
     private static Color32 WBuyableUpgradeColor = new Color32(60,180,255,200);
 
-    private static List<Color32> colorList = new List<Color32> {SColor, SColor, FColor, WColor};
-    private static List<Color32> colorNormalList = new List<Color32> {SNormalColor, SNormalColor, FNormalColor, WNormalColor};
-    private static List<Color32> colorBuyableList = new List<Color32> {SBuyableUpgradeColor, SBuyableUpgradeColor, FBuyableUpgradeColor, WBuyableUpgradeColor};
+    private static List<Color32> colorList = new List<Color32> {SColor, SuColor, FColor, WColor};
+    private static List<Color32> colorNormalList = new List<Color32> {SNormalColor, SuNormalColor, FNormalColor, WNormalColor};
+    private static List<Color32> colorBuyableList = new List<Color32> {SBuyableUpgradeColor, SuBuyableUpgradeColor, FBuyableUpgradeColor, WBuyableUpgradeColor};
 
     int colorMonth;
 
