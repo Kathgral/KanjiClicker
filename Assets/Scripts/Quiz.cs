@@ -10,9 +10,9 @@ public class KanjiQuizManager : MonoBehaviour
     public TextMeshProUGUI answerText;
     public List<Button> answerButtons; // Assign your 4 answer buttons here
     public KanjiData currentKanji;
-    public List<string> currentOptions = new List<string>();
+    public List<(string, string)> currentOptions = new List<(string, string)>();
 
-    void Start()
+    void Awake()
     {
         GenerateQuiz();
     }
@@ -21,7 +21,7 @@ public class KanjiQuizManager : MonoBehaviour
     {
         currentKanji = GetRandomKanji();
         currentOptions.Clear();
-        currentOptions.Add(currentKanji.wk_meanings); // Add the correct answer
+        currentOptions.Add((currentKanji.wk_meanings, currentKanji.fr_meanings));
 
         // Add three incorrect options
         AddWrongOptions();
@@ -29,11 +29,24 @@ public class KanjiQuizManager : MonoBehaviour
         // Update the question text
         Kanji.text = currentKanji.kanji;
 
+        optionsButtons();
+    }
+
+    public void optionsButtons()
+    {
         // Set the options on the buttons
         for (int i = 0; i < answerButtons.Count; i++)
         {
             TMP_Text buttonText = answerButtons[i].GetComponentInChildren<TMP_Text>();
-            buttonText.text = currentOptions[i];
+            switch (DataManager.playerData.Language)
+            {
+                case "en":
+                    buttonText.text = currentOptions[i].Item1;
+                    break;
+                case "fr":
+                    buttonText.text = currentOptions[i].Item2;
+                    break;
+            }
             answerButtons[i].onClick.RemoveAllListeners();
             answerButtons[i].onClick.AddListener(() => CheckAnswer(buttonText.text));
         }
@@ -45,39 +58,31 @@ public class KanjiQuizManager : MonoBehaviour
         return KanjiManager.kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked+1)];
     }
 
-        void AddWrongOptions()
+    void AddWrongOptions()
     {
         // Your code might be expecting meanings to be an array, but it's actually a string.
         // If you stored the meanings in the wk_meanings and expect them to be an array, split them here:
-        string[] correctMeanings = currentKanji.wk_meanings.Trim('[', ']', '\'').Split(new string[] { "', '" }, System.StringSplitOptions.RemoveEmptyEntries);
-        
-        // Assuming wk_meanings is a semicolon-separated list of meanings, for example: "['meaning1', 'meaning2']"
-        HashSet<string> uniqueMeanings = new HashSet<string>();
+        string correctMeaning = currentKanji.wk_meanings;
+
+        // Assuming wk_meanings is a semicolon-separated list of meanings, for example: "[meaning1, meaning2]"
+        HashSet<(string, string)> otherMeanings = new HashSet<(string, string)>();
         
         // Safely attempt to add meanings to the HashSet
         foreach (var kanji in KanjiManager.kanjiDataList.GetRange(0, KanjiManager.indexLastKanjiUnlocked+1))
         {
             if (!string.IsNullOrWhiteSpace(kanji.wk_meanings))
             {
-                string[] meaningsArray = kanji.wk_meanings.Trim('[', ']', '\'').Split(new string[] { "', '" }, System.StringSplitOptions.RemoveEmptyEntries);
-                foreach (var meaning in meaningsArray)
-                {
-                    uniqueMeanings.Add(meaning);
+                if (kanji.wk_meanings != correctMeaning){
+                otherMeanings.Add((kanji.wk_meanings, kanji.fr_meanings)); 
                 }
             }
         }
 
-        // Remove the correct answer to ensure it's not duplicated in the wrong options
-        foreach (var meaning in correctMeanings)
-        {
-            uniqueMeanings.Remove(meaning);
-        }
-
         while (currentOptions.Count < 4)
         {
-            string randomMeaning = uniqueMeanings.ElementAt(Random.Range(0, uniqueMeanings.Count));
+            (string,string) randomMeaning = otherMeanings.ElementAt(Random.Range(0, otherMeanings.Count));
             currentOptions.Add(randomMeaning);
-            uniqueMeanings.Remove(randomMeaning); // Remove to avoid duplicate wrong answers
+            otherMeanings.Remove(randomMeaning); // Remove to avoid duplicate wrong answers
         }
 
         currentOptions = currentOptions.OrderBy(x => Random.value).ToList();
@@ -86,7 +91,17 @@ public class KanjiQuizManager : MonoBehaviour
 
     public void CheckAnswer(string selectedOption)
     {
-        if (selectedOption == currentKanji.wk_meanings)
+        string correctAnswer = "";
+        switch (DataManager.playerData.Language)
+        {
+            case "en":
+                correctAnswer = currentKanji.wk_meanings;
+                break;
+            case "fr":
+                correctAnswer = currentKanji.fr_meanings;
+                break;
+        }
+        if (selectedOption == correctAnswer)
         {
             Debug.Log("Correct!");
             switch (DataManager.playerData.Language)
@@ -95,7 +110,7 @@ public class KanjiQuizManager : MonoBehaviour
                     answerText.text = "<color=#00ff00ff> Correct!\n </color>" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
                     break;
                 case "fr":
-                    answerText.text = "<color=#00ff00ff> Correct !\n </color>" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
+                    answerText.text = "<color=#00ff00ff> Correct !\n </color>" + currentKanji.kanji + " : " + currentKanji.fr_meanings;
                     break;
             }
             // Earn points if you have a correct answer
@@ -113,7 +128,7 @@ public class KanjiQuizManager : MonoBehaviour
                     answerText.text =  "<color=#ff0000ff> Incorrect!\n </color>" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
                     break;
                 case "fr":
-                    answerText.text = "<color=#ff0000ff> Incorrect !\n </color>" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
+                    answerText.text = "<color=#ff0000ff> Incorrect !\n </color>" + currentKanji.kanji + " : " + currentKanji.fr_meanings;
                     break;
             }
         }

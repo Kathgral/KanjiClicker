@@ -21,6 +21,7 @@ public class KanjiData
     public string wk_readings_on;
     public string wk_readings_kun;
     public string[] wk_radicals;
+    public string fr_meanings;
 }
 
 
@@ -55,6 +56,9 @@ public static class CSVParser
                     case "wk_readings_kun":
                         kanjiData.wk_readings_kun = values[j].Replace("[", "").Replace("]", "");
                         break;
+                    case "fr_meanings":
+                        kanjiData.fr_meanings = values[j].Replace("[", "").Replace("]", "");
+                        break;
                 }
             }
 
@@ -79,7 +83,7 @@ public class KanjiManager : MonoBehaviour
     public static KanjiManager Instance;
 
     private int initialNumberOfKanji = 9; // n+1 kanji
-    public static int LastKanjiUnlockable = 2500; // lock the number of kanji unlockable (index so n+1 kanji)
+    public static int LastKanjiUnlockable = 2027; // lock the number of kanji unlockable (index so n+1 kanji)
 
     public Slider kanjiSlider_;
     public static Slider kanjiSlider;
@@ -95,7 +99,7 @@ public class KanjiManager : MonoBehaviour
     {
         objectKanjiDisplay.SetActive(false); // Deactivate the kanji display
         indexLastKanjiUnlocked = initialNumberOfKanji + DataManager.playerData.LevelKanji;
-        TextAsset csvFile = Resources.Load<TextAsset>("kanji"); 
+        TextAsset csvFile = Resources.Load<TextAsset>("kanji_fr"); 
         string csvText = csvFile.text;
         kanjiDataList = CSVParser.Parse(csvText);
         PrintKanji(kanjiDataList[indexKanji]);
@@ -122,7 +126,7 @@ public class KanjiManager : MonoBehaviour
                 break;
             case "fr":
                 displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
-                    $"<b>Sens :</b> \n{kanjiData.wk_meanings}";
+                    $"<b>Sens :</b> \n{kanjiData.fr_meanings}";
                 if (kanjiData.wk_readings_on != "") {
                     displayText.text += $"\n\n<b>On'yomi :</b> \n{kanjiData.wk_readings_on}";
                 }
