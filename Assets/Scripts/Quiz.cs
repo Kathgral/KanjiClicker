@@ -92,10 +92,10 @@ public class KanjiQuizManager : MonoBehaviour
             switch (DataManager.playerData.Language)
             {
                 case "en":
-                    answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+                    answerText.text = "<color=#00ff00ff> Correct!\n </color>" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
                     break;
                 case "fr":
-                    answerText.text = "Correct !\n" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
+                    answerText.text = "<color=#00ff00ff> Correct !\n </color>" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
                     break;
             }
             // Earn points if you have a correct answer
@@ -110,10 +110,10 @@ public class KanjiQuizManager : MonoBehaviour
             switch (DataManager.playerData.Language)
             {
                 case "en":
-                    answerText.text = "Incorrect!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+                    answerText.text =  "<color=#ff0000ff> Incorrect!\n </color>" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
                     break;
                 case "fr":
-                    answerText.text = "Incorrect !\n" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
+                    answerText.text = "<color=#ff0000ff> Incorrect !\n </color>" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
                     break;
             }
         }
