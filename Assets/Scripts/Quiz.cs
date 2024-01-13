@@ -89,7 +89,8 @@ public class KanjiQuizManager : MonoBehaviour
         if (selectedOption == currentKanji.wk_meanings)
         {
             Debug.Log("Correct!");
-            answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+            // In bold green text, display the correct answer
+            answerText.text = "<color=#00ff00ff>" + "Correct!\n" + "</color>" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
             // Earn points if you have a correct answer
             int rewardPoints = DataManager.playerData.PointsPerClick * 10;
             DataManager.playerData.TotalPoints += rewardPoints;
@@ -99,7 +100,8 @@ public class KanjiQuizManager : MonoBehaviour
         else
         {
             Debug.Log("Incorrect!");
-            answerText.text = "Incorrect!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+            // In bold red text, display the correct answer
+            answerText.text = "<color=#ff0000ff>" + "Incorrect!\n" + "</color>" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
         }
         DataManager.playerData.AnswersQuiz += 1;
         GenerateQuiz(); // Generate the next question
