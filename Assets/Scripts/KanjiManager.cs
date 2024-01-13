@@ -108,13 +108,28 @@ public class KanjiManager : MonoBehaviour
 
     void PrintKanji(KanjiData kanjiData)
     {
-        displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
-            $"<b>Meanings:</b> \n{kanjiData.wk_meanings}";
-        if (kanjiData.wk_readings_on != "") {
-            displayText.text += $"\n\n<b>On readings:</b> \n{kanjiData.wk_readings_on}";
-        }
-        if (kanjiData.wk_readings_kun != "") {
-            displayText.text += $"\n\n<b>Kun readings:</b> \n{kanjiData.wk_readings_kun}";
+        switch (DataManager.playerData.Language)
+        {
+            case "en":
+                displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
+                    $"<b>Meanings:</b> \n{kanjiData.wk_meanings}";
+                if (kanjiData.wk_readings_on != "") {
+                    displayText.text += $"\n\n<b>On readings:</b> \n{kanjiData.wk_readings_on}";
+                }
+                if (kanjiData.wk_readings_kun != "") {
+                    displayText.text += $"\n\n<b>Kun readings:</b> \n{kanjiData.wk_readings_kun}";
+                }
+                break;
+            case "fr":
+                displayText.text = $"<b>Kanji:</b> \n{kanjiData.kanji}\n\n" +
+                    $"<b>Sens :</b> \n{kanjiData.wk_meanings}";
+                if (kanjiData.wk_readings_on != "") {
+                    displayText.text += $"\n\n<b>On'yomi :</b> \n{kanjiData.wk_readings_on}";
+                }
+                if (kanjiData.wk_readings_kun != "") {
+                    displayText.text += $"\n\n<b>Kun'yomi :</b> \n{kanjiData.wk_readings_kun}";
+                }
+                break;
         }
     }
 
@@ -129,6 +144,7 @@ public class KanjiManager : MonoBehaviour
     public void OpenKanjiDisplayOnClick()
     {
         objectKanjiDisplay.SetActive(true);
+        PrintKanji(kanjiDataList[indexKanji]);
     }
 
     public void CloseKanjiDisplayOnClick()

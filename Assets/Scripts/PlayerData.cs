@@ -14,4 +14,5 @@ public class PlayerData
     public int indexBackgroundImage = 0;
     public int AnswersQuiz = 0;
     public int GoodAnswersQuiz = 0;
+    public string Language = "en";
 }

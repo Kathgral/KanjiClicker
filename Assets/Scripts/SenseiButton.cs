@@ -32,15 +32,48 @@ public class SenseiButton : MonoBehaviour
             "Don't give up!",
             "You're stronger than you think!",
             "Keep pushing forward!",
-            "Stay motivated!",
+            "Stay motivated!"
         };
+    List<string> textsFR = new List<string> 
+        {
+            "Avance avec confiance\u00A0!",
+            "Persévère pour réussir\u00A0!",
+            "Cultive la positivité\u00A0!",
+            "Chaque effort compte\u00A0!",
+            "Libère ton potentiel\u00A0!",
+            "Aie foi en toi-même\u00A0!",
+            "Poursuis tes rêves\u00A0!",
+            "Chaque échec enseigne\u00A0!",
+            "Optimisme = réussite\u00A0!",
+            "Chaque pas compte\u00A0!",
+            "Défis = opportunités\u00A0!",
+            "Persévère toujours\u00A0!",
+            "Affronte avec courage\u00A0!",
+            "Réveille le champion\u00A0!",
+            "Sois meilleur chaque jour\u00A0!",
+            "Fais de ton mieux\u00A0!",
+            "Avec passion, tout est possible\u00A0!",
+            "Tu peux le faire\u00A0!",
+        };
+
+
 
     public void TextUpdater()
     {
         lastUpdateTime = Time.time;
         // Choose a random text from the list (you can modify this logic as needed)
-        int randomIndex = Random.Range(0, texts.Count);
-        SenseiText.text = texts[randomIndex];
+        int randomIndex;
+        switch (DataManager.playerData.Language)
+            {
+                case "en":
+                    randomIndex = Random.Range(0, texts.Count);
+                    SenseiText.text = texts[randomIndex];
+                    break;
+                case "fr":
+                    randomIndex = Random.Range(0, textsFR.Count);
+                    SenseiText.text = textsFR[randomIndex];
+                    break;
+            }
     }
 
 

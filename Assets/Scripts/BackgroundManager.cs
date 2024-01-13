@@ -16,6 +16,11 @@ public class BackgroundManager : MonoBehaviour
             "March", "April", "May", "June", "July", "August", "September",
             "October", "November", "December", "January", "February"
         };
+    private List<string> monthListFR = new List<string>
+    {
+        "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre",
+        "Octobre", "Novembre", "Décembre", "Janvier", "Février"
+    };
 
     // Variables to change the color according to the season
     public static Color32 normalColor;
@@ -56,13 +61,12 @@ public class BackgroundManager : MonoBehaviour
     void Start()
     {
         backgroundImage.sprite = imageList[DataManager.playerData.indexBackgroundImage];
-        monthText.text = monthList[DataManager.playerData.indexBackgroundImage];
         colorMonth = DataManager.playerData.indexBackgroundImage / 3;
         normalColor = colorList[colorMonth];
         normalUpgradeColor = colorNormalList[colorMonth];
         buyableUpgradeColor = colorBuyableList[colorMonth];
-        ImagePointsPerSecond.color = (DataManager.playerData.TotalPoints < Uprgrade2Button.CostPointsPerSecond) ? normalUpgradeColor : buyableUpgradeColor;
-        ImagePointsPerClick.color = (DataManager.playerData.TotalPoints < Uprgrade2Button.CostPointsPerClick) ? normalUpgradeColor : buyableUpgradeColor;
+        ImagePointsPerSecond.color = (DataManager.playerData.TotalPoints < Upgrades.CostPointsPerSecond) ? normalUpgradeColor : buyableUpgradeColor;
+        ImagePointsPerClick.color = (DataManager.playerData.TotalPoints < Upgrades.CostPointsPerClick) ? normalUpgradeColor : buyableUpgradeColor;
         if (ImagesColor != null)
         {
             foreach (Image image in ImagesColor)
@@ -77,13 +81,21 @@ public class BackgroundManager : MonoBehaviour
     {
         DataManager.playerData.indexBackgroundImage = (DataManager.playerData.indexBackgroundImage + 1) % imageList.Count;
         backgroundImage.sprite = imageList[DataManager.playerData.indexBackgroundImage];
-        monthText.text = monthList[DataManager.playerData.indexBackgroundImage];
+        switch (DataManager.playerData.Language)
+        {
+            case "en":
+                monthText.text = monthList[DataManager.playerData.indexBackgroundImage];
+                break;
+            case "fr":
+                monthText.text = monthListFR[DataManager.playerData.indexBackgroundImage];
+                break;
+        }
         colorMonth = DataManager.playerData.indexBackgroundImage / 3;
         normalColor = colorList[colorMonth];
         normalUpgradeColor = colorNormalList[colorMonth];
         buyableUpgradeColor = colorBuyableList[colorMonth];
-        ImagePointsPerSecond.color = (DataManager.playerData.TotalPoints < Uprgrade2Button.CostPointsPerSecond) ? normalUpgradeColor : buyableUpgradeColor;
-        ImagePointsPerClick.color = (DataManager.playerData.TotalPoints < Uprgrade2Button.CostPointsPerClick) ? normalUpgradeColor : buyableUpgradeColor;
+        ImagePointsPerSecond.color = (DataManager.playerData.TotalPoints < Upgrades.CostPointsPerSecond) ? normalUpgradeColor : buyableUpgradeColor;
+        ImagePointsPerClick.color = (DataManager.playerData.TotalPoints < Upgrades.CostPointsPerClick) ? normalUpgradeColor : buyableUpgradeColor;
         if (ImagesColor != null)
         {
             foreach (Image image in ImagesColor)

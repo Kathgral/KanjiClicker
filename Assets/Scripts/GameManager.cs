@@ -14,19 +14,6 @@ public class GameManager : MonoBehaviour
     public Image ImagePointsPerSecond;
     public Image ImagePointsPerClick;
 
-    // It is best to add every data in the DataManager.playerData class so it can be saved
-    public static int TotalMult = 0;  // Represents the total multiplier effect
-    // Additional variables for different upgrade types
-    public static float AutoClicksPerSecond = 0;
-    public static float CostReductionFactor = 1;
-    public static float AutoClickSpeedMultiplier = 1;
-    public static float BonusClickChance = 0;
-    public static float CriticalClickMultiplier = 1;
-    public static float PassiveIncomePerSecond = 0;
-    public static float LuckFactor = 1;
-    public static float PrestigeMultiplier = 1;
-    public static float TotalClickMultiplier = 1f;
-
     // Variables to change the color of the upgrade button when you have enough points
     private bool buyableUpgradePointsPerSecond;
     private bool buyableUpgradePointsPerClick;
@@ -41,8 +28,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
-        PointsPerSecondText.text = "Learning Points Per Second: " + DataManager.playerData.PointsPerSecond.ToString("0.0");
+        // PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
+        // PointsPerSecondText.text = "Learning Points Per Second: " + DataManager.playerData.PointsPerSecond.ToString("0.0");
         int NextLevel = DataManager.playerData.LevelKanji+1;
         KanjiManager.LearningPointsForNextKanji = CostNextKanji(NextLevel, KanjiManager.BaseCost);
         //KanjiManager.BaseCost * NextLevel + KanjiManager.AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
@@ -72,13 +59,7 @@ public class GameManager : MonoBehaviour
                 ProtectiveScreen.SetActive(false);
             }
         }
-        // Update TotalPoints with passive income and auto clicks
-        // TotalPoints += (PassiveIncomePerSecond + AutoClicksPerSecond * AutoClickSpeedMultiplier) * Time.deltaTime;
-        
-        // Update Total Mult considering all multipliers
-        // TotalMult = PointsPerClick * (int)CriticalClickMultiplier * (int)PrestigeMultiplier;
-        
-        
+       
         // the line below does not work with huge number because of approximation
         // DataManager.playerData.TotalPoints += DataManager.playerData.PointsPerSecond * Time.deltaTime; 
         // Update TotalPoints with passive points per second
@@ -92,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Update UI
-        TotalPointsText.text = "Learning Points: " + DataManager.playerData.TotalPoints.ToString("0");
+        TotalPointsText.text = DataManager.playerData.TotalPoints.ToString("0");
         if (DataManager.playerData.TotalNumberOfPointsObtained >= KanjiManager.LearningPointsForNextKanji && KanjiManager.indexLastKanjiUnlocked < KanjiManager.LastKanjiUnlockable)
         {
             UnlockNewKanji();
@@ -100,8 +81,8 @@ public class GameManager : MonoBehaviour
         }
 
         // Change the color of the upgrade button when you have enough money to buy it      
-        bool statePointsForSecondUpgrade = DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerSecond;
-        bool statePointsForClickUpgrade = DataManager.playerData.TotalPoints >= Uprgrade2Button.CostPointsPerClick;
+        bool statePointsForSecondUpgrade = DataManager.playerData.TotalPoints >= Upgrades.CostPointsPerSecond;
+        bool statePointsForClickUpgrade = DataManager.playerData.TotalPoints >= Upgrades.CostPointsPerClick;
 
         if (statePointsForSecondUpgrade != buyableUpgradePointsPerSecond)
         {
@@ -139,7 +120,15 @@ public class GameManager : MonoBehaviour
     IEnumerator KanjiMessage()
     {
         NewKanjiText.SetActive(true);
-        NewUnlockedKanjiText.text = "You unlocked a new kanji: " + KanjiManager.kanjiDataList[KanjiManager.indexLastKanjiUnlocked].kanji;
+        switch (DataManager.playerData.Language)
+            {
+                case "en":
+                    NewUnlockedKanjiText.text = "You unlocked a new kanji: " + KanjiManager.kanjiDataList[KanjiManager.indexLastKanjiUnlocked].kanji;
+                    break;
+                case "fr":
+                    NewUnlockedKanjiText.text = "Tu as débloqué un nouveau kanji : " + KanjiManager.kanjiDataList[KanjiManager.indexLastKanjiUnlocked].kanji;
+                    break;
+            }
         yield return new WaitForSeconds(3.0f);
         NewKanjiText.SetActive(false);
     }

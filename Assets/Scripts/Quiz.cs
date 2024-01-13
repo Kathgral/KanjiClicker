@@ -89,7 +89,15 @@ public class KanjiQuizManager : MonoBehaviour
         if (selectedOption == currentKanji.wk_meanings)
         {
             Debug.Log("Correct!");
-            answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+            switch (DataManager.playerData.Language)
+            {
+                case "en":
+                    answerText.text = "Correct!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+                    break;
+                case "fr":
+                    answerText.text = "Correct !\n" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
+                    break;
+            }
             // Earn points if you have a correct answer
             int rewardPoints = DataManager.playerData.PointsPerClick * 10;
             DataManager.playerData.TotalPoints += rewardPoints;
@@ -99,7 +107,15 @@ public class KanjiQuizManager : MonoBehaviour
         else
         {
             Debug.Log("Incorrect!");
-            answerText.text = "Incorrect!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+            switch (DataManager.playerData.Language)
+            {
+                case "en":
+                    answerText.text = "Incorrect!\n" + currentKanji.kanji + ": " + currentKanji.wk_meanings;
+                    break;
+                case "fr":
+                    answerText.text = "Incorrect !\n" + currentKanji.kanji + " : " + currentKanji.wk_meanings;
+                    break;
+            }
         }
         DataManager.playerData.AnswersQuiz += 1;
         GenerateQuiz(); // Generate the next question

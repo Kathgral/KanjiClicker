@@ -4,146 +4,73 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum UpgradeType 
-        { 
-            Tap,            // Increases the number of clicks per tap
-            AutoClick,      // Generates clicks automatically per second
-            Multiplier,     // Multiplies the total clicks earned
-            Efficiency,     // Reduces the cost of other upgrades
-            Speed,          // Increases the speed of auto-clickers
-            Bonus,          // Grants occasional bonus clicks or multipliers
-            CriticalClick,  // Chance to earn extra clicks on tap
-            PassiveIncome,  // Generates passive income over time
-            Luck,           // Increases the chance of random positive events
-            Prestige        // Improves long-term benefits, possibly reset-related
-        };
-
-
 public class Upgrades : MonoBehaviour
 {
-    public TextMeshProUGUI ClicksPerTapText;
+    public TextMeshProUGUI PointsPerSecondText;
+    public TextMeshProUGUI PointsPerClickText;
+    public TextMeshProUGUI UpgradePointsPerClickText;
+    public TextMeshProUGUI UpgradePointsPerSecondText;
 
-    // Initialize your upgrades here
-    Upgrade[] upgrades = new Upgrade[10];
+    private int BaseCostPointsPerClick = 60;
+    private int BaseCostPointsPerSecond = 40;
+    public static int CostPointsPerClick;
+    public static int CostPointsPerSecond;
 
-   void Start()
+    public int CalculateUpgradeCost(int Level, int BaseCost, int AdditionalCostFactor = 5)
     {
-        // Tap Upgrade: Increases clicks per tap
-        upgrades[0] = new Upgrade { Level = 0, BaseEffect = 1, BaseCost = 50, CostMultiplier = 1.5f, EffectMultiplier = 1.2f, Type = UpgradeType.Tap };
-
-        // AutoClick Upgrade: Generates automatic clicks per second
-        upgrades[1] = new Upgrade { Level = 0, BaseEffect = 1, BaseCost = 100, CostMultiplier = 1.6f, EffectMultiplier = 1.3f, Type = UpgradeType.AutoClick };
-
-        // Multiplier Upgrade: Boosts the total clicks earned
-        upgrades[2] = new Upgrade { Level = 0, BaseEffect = 2, BaseCost = 200, CostMultiplier = 1.7f, EffectMultiplier = 1.4f, Type = UpgradeType.Multiplier };
-
-        // Efficiency Upgrade: Reduces the cost of other upgrades
-        upgrades[3] = new Upgrade { Level = 0, BaseEffect = 5, BaseCost = 150, CostMultiplier = 1.5f, EffectMultiplier = 1.2f, Type = UpgradeType.Efficiency };
-
-        // Speed Upgrade: Increases the speed of auto-clicks
-        upgrades[4] = new Upgrade { Level = 0, BaseEffect = 1, BaseCost = 250, CostMultiplier = 1.8f, EffectMultiplier = 1.5f, Type = UpgradeType.Speed };
-
-        // Bonus Upgrade: Grants occasional bonus clicks or multipliers
-        upgrades[5] = new Upgrade { Level = 0, BaseEffect = 3, BaseCost = 300, CostMultiplier = 1.9f, EffectMultiplier = 1.6f, Type = UpgradeType.Bonus };
-
-        // Critical Click Upgrade: Chance for extra clicks on tap
-        upgrades[6] = new Upgrade { Level = 0, BaseEffect = 4, BaseCost = 350, CostMultiplier = 2.0f, EffectMultiplier = 1.7f, Type = UpgradeType.CriticalClick };
-
-        // Passive Income Upgrade: Generates passive income over time
-        upgrades[7] = new Upgrade { Level = 0, BaseEffect = 2, BaseCost = 400, CostMultiplier = 2.1f, EffectMultiplier = 1.8f, Type = UpgradeType.PassiveIncome };
-
-        // Luck Upgrade: Increases the chance of random positive events
-        upgrades[8] = new Upgrade { Level = 0, BaseEffect = 5, BaseCost = 500, CostMultiplier = 2.2f, EffectMultiplier = 1.9f, Type = UpgradeType.Luck };
-
-        // Prestige Upgrade: Improves long-term benefits, possibly reset-related
-        upgrades[9] = new Upgrade { Level = 0, BaseEffect = 10, BaseCost = 1000, CostMultiplier = 2.5f, EffectMultiplier = 2.0f, Type = UpgradeType.Prestige };
+        int NextLevel = Level + 1;
+        int cost = BaseCost * NextLevel + AdditionalCostFactor * ((int)Mathf.Pow(NextLevel, 2) - 1);
+        return cost;
     }
 
-
-    public void PurchaseUpgrade(int upgradeIndex)
+    void Awake()
     {
-        if (upgradeIndex < 0 || upgradeIndex >= upgrades.Length)
-        {
-            Debug.LogError("Invalid upgrade index.");
-            return;
-        }
-
-        Upgrade upgrade = upgrades[upgradeIndex];
-        int cost = upgrade.CurrentCost;
-
-        if (DataManager.playerData.TotalPoints >= cost)
-        {
-            DataManager.playerData.TotalPoints -= cost;
-            upgrade.Level++;
-            ApplyUpgradeEffect(upgrade);
-        }
-        else
-        {
-            Debug.Log("Not enough clicks to purchase this upgrade.");
-        }
+        // Initialize the value with the saved data
+        CostPointsPerClick = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerClick, BaseCostPointsPerClick);
+        CostPointsPerSecond = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerSecond, BaseCostPointsPerSecond);
     }
 
-    private void ApplyUpgradeEffect(Upgrade upgrade)
-        {
-            switch (upgrade.Type)
+    public void UpgradePointsPerClick() 
+    {
+        if (DataManager.playerData.TotalPoints >= CostPointsPerClick)
+        { 
+            DataManager.playerData.TotalPoints -= CostPointsPerClick;
+            DataManager.playerData.PointsPerClick += 1;
+            DataManager.playerData.LevelUpgradePointsPerClick += 1;
+            CostPointsPerClick = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerClick, BaseCostPointsPerClick);
+            switch (DataManager.playerData.Language)
             {
-                case UpgradeType.Tap:
-                    DataManager.playerData.PointsPerClick += upgrade.CurrentEffect;
-                    ClicksPerTapText.text = "Clicks Per Tap: \n" + DataManager.playerData.PointsPerClick.ToString("0");
+                case "en":
+                    UpgradePointsPerClickText.text = "Increase the number of points per click: \n" + CostPointsPerClick.ToString() + " LP";
+                    PointsPerClickText.text = "Learning Points Per Click: " + DataManager.playerData.PointsPerClick;
                     break;
-
-                case UpgradeType.AutoClick:
-                    // Example: Increase auto clicks per second
-                    GameManager.AutoClicksPerSecond += upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.Multiplier:
-                    GameManager.TotalClickMultiplier *= upgrade.CurrentEffect; // Assuming CurrentEffect is the intended multiplier increase
-                    break;
-
-                case UpgradeType.Efficiency:
-                    // Example: Reduce the cost of future upgrades
-                    GameManager.CostReductionFactor *= upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.Speed:
-                    // Example: Increase the frequency of auto-clicks
-                    GameManager.AutoClickSpeedMultiplier *= upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.Bonus:
-                    // Example: Increase the chance or effect of bonus clicks
-                    GameManager.BonusClickChance += upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.CriticalClick:
-                    // Example: Increase the chance or multiplier for critical clicks
-                    GameManager.CriticalClickMultiplier += upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.PassiveIncome:
-                    // Example: Generate passive income over time
-                    GameManager.PassiveIncomePerSecond += upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.Luck:
-                    // Example: Increase luck factor for random events
-                    GameManager.LuckFactor += upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
-                    break;
-
-                case UpgradeType.Prestige:
-                    // Example: Enhance long-term benefits, possibly for a reset mechanism
-                    GameManager.PrestigeMultiplier += upgrade.CurrentEffect;
-                    // Update any relevant UI or game state here
+                case "fr":
+                    UpgradePointsPerClickText.text = "Augmente le nombre de points par clic :\n" + Upgrades.CostPointsPerClick.ToString() + " PA";
+                    PointsPerClickText.text = "Points Par Clic : " + DataManager.playerData.PointsPerClick;
                     break;
             }
         }
+    }
 
+    public void UpgradePointsPerSecond() 
+    {
+        if (DataManager.playerData.TotalPoints >= CostPointsPerSecond)
+        { 
+            DataManager.playerData.TotalPoints -= CostPointsPerSecond;
+            DataManager.playerData.PointsPerSecond += 0.5f;
+            DataManager.playerData.LevelUpgradePointsPerSecond += 1;
+            CostPointsPerSecond = CalculateUpgradeCost(DataManager.playerData.LevelUpgradePointsPerSecond, BaseCostPointsPerSecond);
+            switch (DataManager.playerData.Language)
+            {
+                case "en":
+                    UpgradePointsPerSecondText.text = "Increase the number of points per second: \n" + CostPointsPerSecond + " LP";
+                    PointsPerSecondText.text = "Learning Points Per Second: " + DataManager.playerData.PointsPerSecond.ToString("0.0");
+                    break;
+                case "fr":
+                    UpgradePointsPerSecondText.text = "Augmente le nombre de points par seconde :\n" + Upgrades.CostPointsPerSecond.ToString() + " PA";
+                    PointsPerSecondText.text = "Points Par Seconde : " + DataManager.playerData.PointsPerSecond.ToString("0.0");
+                    break;
+            }
+        }
+    }
 }
