@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AudioBackground : MonoBehaviour
 {
+    public delegate void SongChangedDelegate(string songName);
+    public event SongChangedDelegate OnSongChanged;
+
     public AudioClip[] soundtrack;
     private AudioSource audioSource;
     private List<AudioClip> remainingSongs;
@@ -34,6 +37,8 @@ public class AudioBackground : MonoBehaviour
         int randomIndex = Random.Range(0, remainingSongs.Count);
         audioSource.clip = remainingSongs[randomIndex];
         Debug.Log(audioSource.clip);
+        OnSongChanged?.Invoke(audioSource.clip.name);
+
         audioSource.Play();
         remainingSongs.RemoveAt(randomIndex);
     }
