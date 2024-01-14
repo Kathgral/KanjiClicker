@@ -60,29 +60,14 @@ public class KanjiQuizManager : MonoBehaviour
 
     void AddWrongOptions()
     {
-        // Your code might be expecting meanings to be an array, but it's actually a string.
-        // If you stored the meanings in the wk_meanings and expect them to be an array, split them here:
         string correctMeaning = currentKanji.wk_meanings;
-
-        // Assuming wk_meanings is a semicolon-separated list of meanings, for example: "[meaning1, meaning2]"
-        HashSet<(string, string)> otherMeanings = new HashSet<(string, string)>();
-        
-        // Safely attempt to add meanings to the HashSet
-        foreach (var kanji in KanjiManager.kanjiDataList.GetRange(0, KanjiManager.indexLastKanjiUnlocked+1))
-        {
-            if (!string.IsNullOrWhiteSpace(kanji.wk_meanings))
-            {
-                if (kanji.wk_meanings != correctMeaning){
-                otherMeanings.Add((kanji.wk_meanings, kanji.fr_meanings)); 
-                }
-            }
-        }
-
         while (currentOptions.Count < 4)
         {
-            (string,string) randomMeaning = otherMeanings.ElementAt(Random.Range(0, otherMeanings.Count));
-            currentOptions.Add(randomMeaning);
-            otherMeanings.Remove(randomMeaning); // Remove to avoid duplicate wrong answers
+            KanjiData otherKanji = KanjiManager.kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked+1)];
+            (string, string) otherKanjiMeanings = (otherKanji.wk_meanings, otherKanji.fr_meanings);
+            if (! currentOptions.Contains(otherKanjiMeanings) ){
+                currentOptions.Add(otherKanjiMeanings);
+            }
         }
 
         currentOptions = currentOptions.OrderBy(x => Random.value).ToList();
