@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Game For IT
   productName: Kanji Clicker
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -136,7 +136,8 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -423460427119799142, guid: aa1cc78bcdba8d94bafc919a33feb87a, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -157,7 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.DefaultCompany.com.unity.template.mobile2D
+    Android: com.GameForIT.com.KanjiClicker
     Lumin: com.DefaultCompany.com.unity.template.mobile2D
     Standalone: com.DefaultCompany.com.unity.template.mobile2D
     iPhone: com.DefaultCompany.com.unity.template.mobile2D
@@ -262,8 +263,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: '{inproject}: user.keystore'
+  AndroidKeyaliasName: user
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -271,7 +272,7 @@ PlayerSettings:
   AndroidEnableTango: 0
   androidEnableBanner: 1
   androidUseLowAccuracyLocation: 0
-  androidUseCustomKeystore: 0
+  androidUseCustomKeystore: 1
   m_AndroidBanners:
   - width: 320
     height: 180
@@ -286,7 +287,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 5ba3e8f13fb3b3d46a700f7d51262411, type: 3}
+      m_Icon: {fileID: 2800000, guid: c8da4860300354110bebb84e66ea00f9, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -703,7 +704,7 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
-    Android: 0
+    Android: 1
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   managedStrippingLevel:

@@ -3,12 +3,10 @@ using TMPro;
 
 public class SongDisplayButton : MonoBehaviour
 {
-    private TextMeshProUGUI songNameText;
+    public TextMeshProUGUI songNameText;
 
     void Start()
     {
-        // Get the TextMeshProUGUI component from the same GameObject
-        songNameText = GetComponent<TextMeshProUGUI>();
 
         if (songNameText == null)
         {
@@ -33,6 +31,6 @@ public class SongDisplayButton : MonoBehaviour
     void UpdateSongName(string songName)
     {
         // Update the text with the current song name
-        songNameText.text = "Current Song: " + songName;
+        songNameText.text = "" + songName;
     }
 }

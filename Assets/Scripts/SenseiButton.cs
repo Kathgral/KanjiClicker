@@ -111,6 +111,8 @@ public class SenseiButton : MonoBehaviour
                 int awardedPoints = DataManager.playerData.PointsPerClick * multBonusPoints * clickTimes.Count;
                 DataManager.playerData.TotalPoints += awardedPoints;
                 DataManager.playerData.TotalNumberOfPointsObtained += awardedPoints;
+                DataManager.playerData.TotalNumberOfClicks += clickTimes.Count;
+
                 // Start the cooldown
                 StartCoroutine(NbBonusPointsMessage(awardedPoints));
                 StartCoroutine(BonusCooldown());

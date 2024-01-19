@@ -60,7 +60,6 @@ public class KanjiQuizManager : MonoBehaviour
 
     void AddWrongOptions()
     {
-        string correctMeaning = currentKanji.wk_meanings;
         while (currentOptions.Count < 4)
         {
             KanjiData otherKanji = KanjiManager.kanjiDataList[Random.Range(0, KanjiManager.indexLastKanjiUnlocked+1)];
